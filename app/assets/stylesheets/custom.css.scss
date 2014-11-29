@@ -1,0 +1,217 @@
+/* mixins, variables, etc. */
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+  background: image-url("bg.png");
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+
+/* typography */
+
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+
+/* Text colours */
+.redtext {
+  color: #CC0000 !important;
+}
+
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid;
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
+/* mixins, variables, etc. */
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;  
+}
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+
+
+/* Users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid;
+    &:last-child {
+      border-bottom: 1px solid;
+    }
+  }
+}
+
+
+/* Heading separator*/
+.heading-separator {
+  padding-top: 25px;
+  padding-bottom: 3px;
+}
+
+/* Bootstrap wells */
+.well-red{
+background-color: rgba(255,100,100,0.2); // I don't know the .well color, so I used white as example
+}
+
+.well-green{
+background-color: rgba(100,255,100,0.3); // I don't know the .well color, so I used white as example
+}
+
+.well-semigreen{
+background-color: rgba(100,255,100,0.1); // I don't know the .well color, so I used white as example
+}
+
+
+/* Horizontal line on a bootstrap row class*/
+.rowline {
+  margin-top: 45px;
+  margin-bottom: 35px;
+  padding-top: 35px;
+  border-top: 1px solid;
+  border-color: #CDCDCD;
+}
+
+/* Spacings */
+.bottomspace {
+  padding-bottom: 30px;
+}
+
+.topspace50 {
+  padding-top: 50px;
+}
+
+.topspace20 {
+  padding-top: 20px;
+}
+
+
+/* file upload button */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* dashboard button border */
+
+#dashboard_button {
+  border: 1px solid;
+  border-color: #67a4fe;
+}
+
+
+/* Images */
+
+.center_border_img {
+  border: 3px solid #777;
+  margin: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.frontpage_image {
+  border: 1px solid #444;
+} 
