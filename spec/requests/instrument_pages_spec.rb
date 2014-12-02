@@ -59,9 +59,7 @@ describe "instrument pages:" do
   describe "New page" do
     
     describe "for signed-in users" do
-      
-      let!(:myfacility) { FactoryGirl.create(:facility, contact: user, description: 'a new description') } 
-      let!(:myproject) { FactoryGirl.create(:project) } 
+
       before { sign_in user }
       before { visit new_instrument_path }            
       
@@ -87,25 +85,22 @@ describe "instrument pages:" do
       describe "with valid information" do
         
         before do
+          fill_in 'instrument_serialNumber', with: 'fsdfjhkds'
           fill_in 'instrument_supplier'  , with: 'Dummy Supplier Inc'
           fill_in 'instrument_purchaseDate', with: Date.new(2012, 12, 3)
           fill_in 'instrument_retirementDate', with: Date.new(2013, 10, 7)
           fill_in 'instrument_price', with: 2430.00
         end
         
-        it "should create a sample_set" do
-          expect { click_button "Submit" }.to change(SampleSet, :count).by(1)
+        it "should create a instrument" do
+          expect { click_button "Submit" }.to change(Instrument, :count).by(1)
         end
         
-        it "should create the correct number of new samples based on sample_set" do
-          expect { click_button "Submit" }.to change(Sample, :count).by(numsamples)
-        end
-        
-        describe "should return to view page" do
-          before { click_button "Submit" }
-          it { should have_content('Sample Set created!') }
-          it { should have_title(full_title('Sample Set View')) }
-        end
+        # describe "should return to view page" do
+          # before { click_button "Submit" }
+          # it { should have_content('Instrument created!') }
+          # it { should have_title(full_title('Instrument View')) }
+        # end
         
       end  
       
@@ -113,7 +108,7 @@ describe "instrument pages:" do
     
     describe "for non signed-in users" do
       describe "should be redirected back to signin" do
-        before { visit new_sample_set_path }
+        before { visit new_instrument_path }
         it { should have_title('Sign in') }
       end
     end
