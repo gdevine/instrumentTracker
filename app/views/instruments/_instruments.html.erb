@@ -1,0 +1,22 @@
+<% if @instruments.any? %>
+  <h5><%= @instruments.count %> results</h5>
+  <%= will_paginate @instruments, :param_name => "page" %>
+  
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Instrument ID</th>
+        <th>Serial Number</th>
+        <th>Purchase Date</th>
+        <th>Supplier</th>
+        <th>View?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'instruments/instruments_table', collection: @instruments, as: :instrument %>
+    </tbody>
+  </table>
+  
+<% else %>
+  <p>No Instruments found</p>
+<% end %>

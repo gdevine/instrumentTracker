@@ -24,4 +24,4 @@ def secure_token
   end
 end
 
-Baseapp1::Application.config.secret_key_base = secure_token
+InstrumentTracker::Application.config.secret_key_base = secure_token

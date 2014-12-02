@@ -110,9 +110,29 @@ describe User do
     it { should_not be_valid }
   end
   
- describe "with a password that's too short" do
+  describe "with a password that's too short" do
     before { @user.password = @user.password_confirmation = "a" * 5 }
     it { should be_invalid }
+  end
+  
+  
+  describe "instrument associations" do
+    
+    let!(:instrument_middle) {FactoryGirl.create(:instrument, created_at: 1.day.ago)}
+    let!(:instrument_newest) {FactoryGirl.create(:instrument, created_at: 1.hour.ago)}
+    let!(:instrument_oldest) {FactoryGirl.create(:instrument, created_at: 1.month.ago)}
+    
+    before do 
+      @user.save
+      @user.instruments << instrument_middle
+      @user.instruments << instrument_oldest
+      @user.instruments << instrument_newest
+    end
+       
+    it "should have associated instruments in order of creation, newest first" do
+      expect(@user.instruments).to eq [instrument_newest, instrument_middle, instrument_oldest]
+    end
+    
   end
   
 end

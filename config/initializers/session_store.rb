@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-Baseapp1::Application.config.session_store :cookie_store, key: '_baseapp1_session'
+InstrumentTracker::Application.config.session_store :cookie_store, key: '_instrumenttracker_session'

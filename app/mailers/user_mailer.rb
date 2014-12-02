@@ -1,9 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default from: 'notifications@baseapp1.com'
+  default from: 'notifications@instrumenttracker.com'
  
   def welcome_email(user)
     @user = user
-    mail(to: @user.email, subject: 'Welcome to Base App 1')
+    mail(to: @user.email, subject: 'Welcome to HIE Instrument Tracker')
   end
   
   def new_user_waiting_for_approval(user)
