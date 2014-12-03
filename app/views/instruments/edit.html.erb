@@ -1,0 +1,57 @@
+<% provide(:title, 'Edit Instrument') %>
+<% provide(:pageheading, 'Edit Instrument '+ @instrument.id.to_s) %>
+
+<%= form_for @instrument, :html => {:class => "form-horizontal"} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <div class="form-group">
+    <%= f.label :supplier, "Supplier", :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= f.text_field :supplier, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :serialNumber, "Serial Number", :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= f.text_field :serialNumber, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :purchaseDate, 'Purchase Date', :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= f.date_field :purchaseDate, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :retirementDate, 'Retirement Date', :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= f.date_field :retirementDate, :class => "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+	  <%= f.label :price, 'Price', :class => "col-lg-2 control-label"  %>
+	  <div class="col-lg-8">
+	    <%= f.number_field :price, :min => 0, :class => "form-control" %>  
+	  </div> 
+  </div> 
+  
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-4 topspace50 bottomspace">
+      <%= f.submit "Update", :class => "btn btn-large btn-primary" %>
+    </div>
+  </div>
+  
+<% end %>
+
+<!-- <script type="text/javascript">
+$('#projects, #facilities').multiselect({
+    buttonClass : "form-control",
+    buttonWidth: "50%",
+    maxHeight: 400,
+    enableFiltering: true
+});
+</script> -->
