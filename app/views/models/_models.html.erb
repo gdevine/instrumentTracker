@@ -1,0 +1,22 @@
+<% if @models.any? %>
+  <h5><%= @models.count %> results</h5>
+  <%= will_paginate @models, :param_name => "page" %>
+  
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Model ID</th>
+        <th>Model Type</th>
+        <th>Manufacturer</th>
+        <th>Name</th>
+        <th>View?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'models/models_table', collection: @models, as: :model %>
+    </tbody>
+  </table>
+  
+<% else %>
+  <p>No Models found</p>
+<% end %>

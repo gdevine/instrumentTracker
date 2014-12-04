@@ -199,8 +199,6 @@ describe "Menu Panel:" do
     
   end
   
-end
-  
 #   
   # describe "opening the facility dropdown" do
     # before { sign_in(user) }
@@ -246,21 +244,25 @@ end
   
 # Resources menu
   
-  # describe "opening the facility dropdown" do
-    # before { sign_in(user) }
-    # before { visit root_path }
-#     
-    # describe "and clicking the View link" do
-      # before do
-        # click_link('Facilities')
-      # end
-#   
-      # it "should open up the facility index page" do
-        # expect(page).to have_title('Facility List')
-      # end
-    # end
-  # end
+  describe "opening the resources dropdown" do
+    before { sign_in(user) }
+    before { visit root_path }
+    
+    describe "and clicking the models link" do
+      before do
+        click_link('Models')
+      end
   
+      it "should open up the models index page" do
+        expect(page).to have_title('Models List')
+      end
+    end
+  end
+  
+
+end
+
+#   
   # describe "opening the project dropdown" do
     # before { sign_in(user) }
     # before { visit root_path }
@@ -275,7 +277,7 @@ end
       # end
     # end
   # end
-  
+#   
   # describe "opening the storage locations dropdown" do
     # before { sign_in(user) }
     # before { visit root_path }
@@ -290,7 +292,7 @@ end
       # end
     # end
   # end
-  
+#   
   # describe "opening the analysis dropdown" do
     # before { sign_in(user) }
     # before { visit root_path }

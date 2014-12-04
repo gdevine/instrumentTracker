@@ -1,5 +1,7 @@
 InstrumentTracker::Application.routes.draw do
 
+  get "models/index"
+  get "models/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   
@@ -12,6 +14,7 @@ InstrumentTracker::Application.routes.draw do
   match '/dashboard',       to: 'static_pages#dashboard',   via: 'get'
   
   resources :instruments 
+  resources :models
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

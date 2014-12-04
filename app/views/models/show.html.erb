@@ -1,0 +1,90 @@
+<style type="text/css">
+  table {
+    border-width: 0;
+    border-style: none;
+    border-color: #0000ff;
+    border-collapse: collapse;
+  }
+  td {
+    border-width: 0; 
+    border-style: none;
+    border-color: #0000ff; 
+    border-collapse: collapse; 
+    padding: 0; 
+    margin: 0; 
+    width: 10px; 
+    height: 10px; 
+  }
+  td.black { background-color: #000; }
+  td.white { background-color: #fff; }
+</style>
+
+<% provide(:title, 'Model View') %>
+<% provide(:pageheading, 'Model '+ @model.id.to_s) %>
+
+
+<div class="row">
+  <div class="col-md-12">	
+	
+		<div class="row">
+		  <div class="col-md-offset-3 col-md-3">
+		    <p class="text-left">Model ID</p>
+		  </div>   
+		  <div class="col-md-6">
+		    <p class="text-muted"><%= @model.id %></p>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-offset-3 col-md-3">
+		    <p class="text-left">Model Type</p>
+		  </div>   
+		  <div class="col-md-6">
+		    <p class="text-muted"><%= @model.modelType %></p>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-offset-3 col-md-3">
+		    <p class="text-left">Manufacturer</p>
+		  </div>   
+		  <div class="col-md-6">
+		    <p class="text-muted"><%= @model.manufacturer %></p>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-offset-3 col-md-3">
+		    <p class="text-left">Model Name</p>
+		  </div>   
+		  <div class="col-md-6">
+		    <p class="text-muted"><%= @model.modelName %></p>
+		  </div>
+		</div>
+
+  </div>
+  
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12 rowline">
+    <h4>Instruments of this model type at HIE</h4>
+    <% @model.instruments.each do |inst| %>
+      <div class="row topspace20">
+      	<div class="col-xs-offset-1">
+          <%= inst.serialNumber %>
+        </div>
+      </div>
+    <% end %>
+    
+    
+    <%= render 'instruments/instruments' %>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="col-xs-12">
+    <%# render 'samples/samples' %>
+  </div>
+</div> -->
