@@ -11,17 +11,17 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <div class="container">
+    <div class="container">      
+      
+      <!-- <%# if user_signed_in? %> -->
+        <%= render 'layouts/minibar' %>
+      <!-- <%# end %> -->
       <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>">
           <%= value %>
         </div>
       <% end %>
-      
-      
-      <!-- <%# if user_signed_in? %> -->
-        <%= render 'layouts/minibar' %>
-      <!-- <%# end %> -->
+
       
       <!-- Notifications from Devise  -->
 	  <!-- <% if notice %>

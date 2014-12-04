@@ -5,6 +5,13 @@
   <%= render 'shared/error_messages', object: f.object %>
   
   <div class="form-group">
+    <%= f.label :model_id, 'Model', :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= collection_select(:instrument, :model_id, Model.all, :id, :full_name, {include_blank: 'None selected'}, {:class=>"form-control", :id=>'models'} ) %>
+    </div>
+  </div>
+  
+  <div class="form-group">
     <%= f.label :supplier, "Supplier", :class => "col-lg-2 control-label" %>
     <div class="col-lg-8">
       <%= f.text_field :supplier, :class => "form-control" %>

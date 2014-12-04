@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe Instrument do
-
-  # let(:inst) { FactoryGirl.create(:instrument) }
   
-  before { @inst = FactoryGirl.build(:instrument) }
+  let(:mod) { FactoryGirl.create(:model) }
+  before { @inst = FactoryGirl.build(:instrument, model_id:mod.id) }
   
   subject { @inst }
   
@@ -18,6 +17,8 @@ describe Instrument do
   it { should respond_to(:fundingSource) }
   it { should respond_to(:supplier) }
   it { should respond_to(:price) }
+  
+  it { should respond_to(:model) }
  
   it { should be_valid }
 
@@ -34,6 +35,11 @@ describe Instrument do
 
   describe "when serialNumber is not present" do
     before { @inst.serialNumber = nil }
+    it { should_not be_valid }
+  end
+  
+  describe "when model association is not present" do
+    before { @inst.model = nil }
     it { should_not be_valid }
   end
   

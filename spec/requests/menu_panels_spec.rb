@@ -173,6 +173,7 @@ describe "Menu Panel:" do
       
       describe "and clicking the Create New link" do
         before do
+          FactoryGirl.create(:model)
           click_link('instruments_new')
         end
     
@@ -184,7 +185,7 @@ describe "Menu Panel:" do
     end
     
     describe "when not signed in" do
-      before do 
+      before do
         visit root_path
       end
       

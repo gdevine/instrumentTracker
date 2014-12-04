@@ -7,7 +7,12 @@ class InstrumentsController < ApplicationController
   end
   
   def new
-    @instrument = Instrument.new
+    if Model.count == 0
+      flash[:error] = "New Instruments can't be added until at least one Instrument Model is added to the system. Contact the admin to do this."
+      redirect_to root_url
+    else
+      @instrument = Instrument.new
+    end
   end
 
   def create
@@ -49,7 +54,7 @@ class InstrumentsController < ApplicationController
   private
 
     def instrument_params
-      params.require(:instrument).permit(:serialNumber, :supplier, :purchaseDate, :retirementDate, :price)
+      params.require(:instrument).permit(:model_id, :serialNumber, :supplier, :purchaseDate, :retirementDate, :price)
     end
     
     def correct_user

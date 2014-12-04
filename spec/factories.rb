@@ -7,9 +7,14 @@ FactoryGirl.define do
     password "foobar100"
     password_confirmation "foobar100"  
     approved true
-    
   end
   
+  factory :model do
+    sequence(:modelType) { |n| "mtype_#{n}" }
+    sequence(:manufacturer) { |n| "man_#{n}" }
+    sequence(:modelName) { |n| "mname_#{n}" }
+  end
+    
   factory :instrument do
     model_id  1 
     sequence(:serialNumber) { |n| "aserialnumber_#{n}" }
@@ -20,6 +25,7 @@ FactoryGirl.define do
     supplier "A dummy supplier"
     price 2435.00
     
+    association :model, :factory  => :model
   end
   
 end

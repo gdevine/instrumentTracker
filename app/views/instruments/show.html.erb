@@ -40,42 +40,108 @@
 
 
 <div class="row">
-  <div class="col-md-9">	
+  <div class="col-md-7">	
 	
 		<div class="row">
-		  <div class="col-md-offset-4 col-md-2">
+		  <div class="col-md-offset-3 col-md-3">
 		    <p class="text-left">Instrument</p>
 		  </div>   
-		  <div class="col-md-4">
+		  <div class="col-md-6">
 		    <p class="text-muted"><%= @instrument.id %></p>
 		  </div>
 		</div>
 		
 		<div class="row">
-		  <div class="col-md-offset-4 col-md-2">
+		  <div class="col-md-offset-3 col-md-3">
 		    <p class="text-left">Serial Number</p>
 		  </div>   
-		  <div class="col-md-4">
+		  <div class="col-md-6">
 		    <p class="text-muted"><%= @instrument.serialNumber %></p>
 		  </div>
 		</div>
 		
 		<div class="row">
-		  <div class="col-md-offset-4 col-md-2">
+		  <div class="col-md-offset-3 col-md-3">
 		    <p class="text-left">Supplier</p>
 		  </div>   
-		  <div class="col-md-4">
+		  <div class="col-md-6">
 		    <p class="text-muted"><%= @instrument.supplier %></p>
 		  </div>
 		</div>
-	
+		
+		<div class="row">
+		  <div class="col-md-offset-3 col-md-3">
+		    <p class="text-left">Price</p>
+		  </div>   
+		  <div class="col-md-6">
+		    <p class="text-muted"><%= @instrument.price %></p>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-offset-3 col-md-3">
+		    <p class="text-left">Purchase Date</p>
+		  </div>   
+		  <div class="col-md-6">
+		    <p class="text-muted"><%= @instrument.purchaseDate %></p>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-offset-3 col-md-3">
+		    <p class="text-left">Retirement Date</p>
+		  </div>  
+		  <div class="col-md-6">
+		    <p class="text-muted"><%= @instrument.retirementDate %></p>
+		  </div>
+		</div>
   </div>
+  
+  <div class="col-md-4 well">	
+  	<h4 class="center">Model</h4>
+  	
+  	<div class="row topspace20">
+		  <div class="col-md-5">
+		    <p class="text-left">Type</p>
+		  </div>   
+		  <div class="col-md-7">
+		    <p class="text-left text-muted"><%= @instrument.model.modelType %></p>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-5">
+		    <p class="text-left">Manufacturer</p>
+		  </div>   
+		  <div class="col-md-7">
+		    <p class="text-left text-muted"><%= @instrument.model.manufacturer %></p>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-5">
+		    <p class="text-left">Name</p>
+		  </div>   
+		  <div class="col-md-7">
+		    <p class="text-left text-muted"><%= @instrument.model.modelName %></p>
+		  </div>
+		</div>
+		
+  </div>
+  
 </div>
 
 
 <div class="row">
   <div class="col-xs-12 rowline">
     <h4>Contacts for this Instrument</h4>
+    <% @instrument.users.each do |contact| %>
+      <div class="row topspace20">
+      	<div class="col-xs-offset-1">
+          <%= contact.firstname+' '+contact.surname+' ('+contact.email+')' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 

@@ -57,10 +57,22 @@ describe "instrument pages:" do
   
   describe "New page" do
     
-    describe "for signed-in users" do
-
-      before { sign_in user }
-      before { visit new_instrument_path }            
+    describe "for signed-in users with no models in the system should show an error" do
+      before do 
+        sign_in user
+        visit new_instrument_path
+      end         
+      it { should have_content("New Instruments can't be added until at least one Instrument Model is added to the system") }
+    end
+    
+    describe "for signed-in users with models in the system" do
+      
+      let!(:mymod) { FactoryGirl.create(:model) } 
+      
+      before do 
+        sign_in user
+        visit new_instrument_path
+      end          
       
       it { should have_content('New Instrument') }
       it { should have_title(full_title('New Instrument')) }
@@ -84,6 +96,7 @@ describe "instrument pages:" do
       describe "with valid information" do
         
         before do
+          find('#models').find(:xpath, 'option[2]').select_option
           fill_in 'instrument_supplier'  , with: 'Dummy Supplier Inc'
           fill_in 'instrument_serialNumber', with: 'fsdfjhkds'
           fill_in 'instrument_purchaseDate', with: Date.new(2012, 12, 3)
@@ -140,6 +153,10 @@ describe "instrument pages:" do
       it { should have_link('Edit Instrument') }
       it { should have_link('Delete Instrument') }
       
+      describe 'should see model details' do
+        it { should have_content('Manufacturer') }
+       end
+      
       describe "when clicking the edit button" do
         before { click_link "Edit Instrument" }
         let!(:page_heading) {"Edit Instrument " + @instrument.id.to_s}
@@ -149,20 +166,22 @@ describe "instrument pages:" do
         end
       end 
       
-      # describe "should show correct sample associations" do
-        # let!(:first_sample) { FactoryGirl.create(:sample, owner: user, container_id: container.id, storage_location_id:container.storage_location_id ) }
-        # let!(:second_sample) { FactoryGirl.create(:sample, owner: user, container_id: container.id, storage_location_id:container.storage_location_id ) }
-#         
-        # before do 
-          # visit container_path(container)
-        # end
-#         
-        # it { should have_content('Samples held within this Container') }
-        # it { should have_selector('table tr th', text: 'Sample ID') } 
-        # it { should have_selector('table tr td', text: first_sample.id) } 
-        # it { should have_selector('table tr td', text: second_sample.id) } 
-#               
-      # end
+      describe "should show correct user/owner associations" do
+        let!(:new_user1) { FactoryGirl.create(:user) }
+        let!(:new_user2) { FactoryGirl.create(:user) }
+        
+        before do         
+          @instrument.users << new_user1
+          @instrument.users << new_user2
+          visit instrument_path(@instrument)
+        end
+        
+        it { should have_content('Contacts for this Instrument') }
+        it { should have_content(user.firstname) }  
+        it { should have_content(new_user1.firstname) }  
+        it { should have_content(new_user2.firstname) }  
+              
+      end
       
     end
     
@@ -177,7 +196,12 @@ describe "instrument pages:" do
         
        describe 'should have a page heading for the correct instrument' do
           it { should have_selector('h2', :text => page_heading) }
-        end
+       end
+       
+       describe 'should see model details' do
+          it { should have_content('Manufacturer') }
+       end
+       
        describe "should not see the edit and delete buttons" do
          it { should_not have_link('Edit Container') }
          it { should_not have_link('Delete Container') }
@@ -195,6 +219,11 @@ describe "instrument pages:" do
         describe 'should have a page heading for the correct instrument' do
           it { should have_selector('h2', :text => page_heading) }
         end
+        
+        describe 'should see model details' do
+          it { should have_content('Manufacturer') }
+        end
+       
         describe "should not see the edit and delete buttons" do
           it { should_not have_link('Edit Container') }
           it { should_not have_link('Delete Container') }
@@ -213,7 +242,9 @@ describe "instrument pages:" do
     end 
     
     describe "for signed-in users who are an owner" do
-    
+      
+      let!(:mymod) { FactoryGirl.create(:model) } 
+      
       before do 
         sign_in(user) 
         visit edit_instrument_path(@instrument)
@@ -223,7 +254,7 @@ describe "instrument pages:" do
       it { should have_title(full_title('Edit Instrument')) }
       it { should_not have_title('| Home') }
       
-      describe "with invalid information" do
+      describe "with invalid serial number information" do
         
           before do
             fill_in 'instrument_serialNumber', with: ''
@@ -232,6 +263,19 @@ describe "instrument pages:" do
           
           describe "should return an error" do
             it { should have_content('error') }
+          end
+  
+      end
+      
+      describe "with invalid model choice" do
+        
+          before do
+            find('#models').find(:xpath, 'option[1]').select_option
+            click_button "Update"
+          end
+          
+          describe "should return an error" do
+            it { should have_content("Model can't be blank") }
           end
   
       end
