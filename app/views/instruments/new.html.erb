@@ -26,9 +26,23 @@
   </div>
   
   <div class="form-group">
+    <%= f.label :assetNumber, "Asset Number", :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= f.text_field :assetNumber, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
     <%= f.label :purchaseDate, 'Purchase Date', :class => "col-lg-2 control-label" %>
     <div class="col-lg-8">
       <%= f.date_field :purchaseDate, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :fundingSource, "Funding Source", :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= f.text_field :fundingSource, :class => "form-control" %>
     </div>
   </div>
   

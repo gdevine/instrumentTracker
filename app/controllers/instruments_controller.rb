@@ -54,7 +54,7 @@ class InstrumentsController < ApplicationController
   private
 
     def instrument_params
-      params.require(:instrument).permit(:model_id, :serialNumber, :supplier, :purchaseDate, :retirementDate, :price)
+      params.require(:instrument).permit(:model_id, :fundingSource, :assetNumber, :serialNumber, :supplier, :purchaseDate, :retirementDate, :price)
     end
     
     def correct_user

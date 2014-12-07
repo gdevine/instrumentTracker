@@ -38,20 +38,37 @@ describe Instrument do
     it { should_not be_valid }
   end
   
+  describe "when assetNumber is not present" do
+    before { @inst.assetNumber = nil }
+    it { should_not be_valid }
+  end
+  
   describe "when model association is not present" do
     before { @inst.model = nil }
     it { should_not be_valid }
   end
   
-  describe "when instrument serialNumber is not unique" do    
+  describe "when instrument model/serialNumber combination is not unique" do    
     before do
-      inst_same_serial = @inst.dup
-      inst_same_serial.save
+      inst_same_modelserial = @inst.dup
+      inst_same_modelserial.save
     end
     
     it { should_not be_valid } 
   end
   
+  describe "when instrument serialNumber is the same between different models" do    
+    
+    let(:newmod) { FactoryGirl.create(:model) }
+    before do
+      inst_same_modelserial = @inst.dup
+      inst_same_modelserial.model = newmod 
+      inst_same_modelserial.save
+    end
+    
+    it { should be_valid } 
+  end
+    
   describe "user associations" do  
     let!(:user_c) {FactoryGirl.create(:user, surname: 'clarke')}
     let!(:user_a) {FactoryGirl.create(:user, surname: 'abbot')}

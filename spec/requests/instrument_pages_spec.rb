@@ -97,6 +97,7 @@ describe "instrument pages:" do
         
         before do
           find('#models').find(:xpath, 'option[2]').select_option
+          fill_in 'instrument_assetNumber'  , with: 'dasdasdadsa'
           fill_in 'instrument_supplier'  , with: 'Dummy Supplier Inc'
           fill_in 'instrument_serialNumber', with: 'fsdfjhkds'
           fill_in 'instrument_purchaseDate', with: Date.new(2012, 12, 3)
