@@ -86,4 +86,26 @@ describe Instrument do
     end
   end
   
+  
+  describe "service associations" do
+    before { @inst.save }
+    
+    let!(:older_service) do
+      FactoryGirl.create(:service, instrument: @inst, created_at: 2.days.ago)
+    end
+    
+    let!(:newer_service) do 
+      FactoryGirl.create(:service, instrument: @inst, created_at: 1.hour.ago)
+    end
+    
+    let!(:middle_service) do 
+      FactoryGirl.create(:service, instrument: @inst, created_at: 1.day.ago)
+    end    
+    
+    it "should have the right services in the right order" do
+      expect(Instrument.find_by(id:@inst.id).services.to_a).to eq [newer_service, middle_service, older_service]
+    end
+    
+  end
+  
 end

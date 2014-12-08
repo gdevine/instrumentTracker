@@ -13,7 +13,10 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:approved) }
-
+  it { should respond_to(:services) }
+  it { should respond_to(:instruments) }
+  
+  
   it { should be_valid }
   it { should_not be_approved }
   
@@ -131,6 +134,28 @@ describe User do
        
     it "should have associated instruments in order of creation, newest first" do
       expect(@user.instruments).to eq [instrument_newest, instrument_middle, instrument_oldest]
+    end
+    
+  end
+  
+  
+  describe "service associations" do
+    before { @user.save }
+    
+    let!(:older_service) do
+      FactoryGirl.create(:service, reporter: @user, created_at: 2.days.ago)
+    end
+    
+    let!(:newer_service) do 
+      FactoryGirl.create(:service, reporter: @user, created_at: 1.hour.ago)
+    end
+    
+    let!(:middle_service) do 
+      FactoryGirl.create(:service, reporter: @user, created_at: 1.day.ago)
+    end    
+    
+    it "should have the right services in the right order" do
+      expect(User.find_by(id:@user.id).services.to_a).to eq [newer_service, middle_service, older_service]
     end
     
   end

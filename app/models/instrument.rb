@@ -1,6 +1,7 @@
 class Instrument < ActiveRecord::Base
   has_many :instrument_users, :dependent => :destroy
   has_many :users, :through => :instrument_users
+  has_many :services, :class_name => 'Service', :foreign_key => 'instrument_id', :dependent => :destroy
   belongs_to :model, :class_name => 'Model', :foreign_key => 'model_id'
   
   default_scope -> { order('created_at DESC') }

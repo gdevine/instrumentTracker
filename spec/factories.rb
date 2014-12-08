@@ -16,7 +16,7 @@ FactoryGirl.define do
   end
     
   factory :instrument do
-    model_id  1 
+    # model_id  1 
     sequence(:serialNumber) { |n| "aserialnumber_#{n}" }
     assetNumber 4
     purchaseDate Date.new(2012, 12, 3)
@@ -26,6 +26,18 @@ FactoryGirl.define do
     price 2435.00
     
     association :model, :factory  => :model
+  end
+
+  factory :service do
+    # instrument_id  1 
+    startdatetime DateTime.new(2014, 12, 3)
+    enddatetime DateTime.new(2014, 12, 5)
+    reporteddate DateTime.now
+    problem "This is a dummy issue with this instrument"
+    comments "This is a dummy comment with this instrument"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
   end
   
 end
