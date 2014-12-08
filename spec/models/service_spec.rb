@@ -1,9 +1,15 @@
 require 'spec_helper'
 
 describe Service do
+  let(:user1) {FactoryGirl.create(:user) }
+  let(:user2) {FactoryGirl.create(:user) }
   
-  let(:instrument) { FactoryGirl.create(:instrument) }
-  before { @service = FactoryGirl.build(:service, instrument_id:instrument.id) }
+  before do
+    @instrument = FactoryGirl.create(:instrument)
+    @instrument.users << user1
+    @instrument.save
+    @service = FactoryGirl.build(:service, instrument_id:@instrument.id, reporter:user1)
+  end
   
   subject { @service }
   
@@ -31,7 +37,9 @@ describe Service do
   end
   
   describe "when instrument is not present" do
-    before { @service.instrument = nil }
+    before do 
+      @service.instrument = nil
+    end
     it { should_not be_valid }
   end
   
@@ -49,5 +57,5 @@ describe Service do
     before { @service.reporter_id = 10000 }
     it { should_not be_valid }
   end
-  
+
 end

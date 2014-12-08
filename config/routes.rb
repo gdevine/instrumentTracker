@@ -1,20 +1,29 @@
 InstrumentTracker::Application.routes.draw do
 
-  get "models/index"
-  get "models/show"
+  # get "services/index"
+  # get "services/new"
+  # get "services/create"
+  # get "services/edit"
+  # get "services/update"
+  # get "services/show"
+  # get "services/destroy"
+  # get "models/index"
+  # get "models/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   
   devise_for :users
+    
+  resources :instruments 
+  resources :models, only: [:index, :show]
+  resources :services
   
   root  'static_pages#home'
   match '/about',       to: 'static_pages#about',   via: 'get'
   match '/help',       to: 'static_pages#help',   via: 'get'
   match '/contact',       to: 'static_pages#contact',   via: 'get'
   match '/dashboard',       to: 'static_pages#dashboard',   via: 'get'
-  
-  resources :instruments 
-  resources :models
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

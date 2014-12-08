@@ -68,6 +68,7 @@ describe Instrument do
     
     it { should be_valid } 
   end
+  
     
   describe "user associations" do  
     let!(:user_c) {FactoryGirl.create(:user, surname: 'clarke')}

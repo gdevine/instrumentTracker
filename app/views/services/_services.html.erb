@@ -1,0 +1,23 @@
+<% if @services.any? %>
+  <h5><%= @services.count %> results</h5>
+  <%= will_paginate @services, :param_name => "page" %>
+  
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Service ID</th>
+        <th>Instrument Serial Number</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Reported By</th>
+        <th>View?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'services/services_table', collection: @services, as: :service %>
+    </tbody>
+  </table>
+  
+<% else %>
+  <p>No Servicing Records found</p>
+<% end %>
