@@ -31,9 +31,9 @@
 		  <span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
-		    <li><%= link_to "Edit Service", :action => 'edit' %></li>
-		    <li><%= link_to "Delete Service", @service, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
-	    </ul>
+		  <li><%= link_to "Edit Service", edit_instrument_service_path(instrument_id:@instrument.id, id:@service.id) %> </li>
+		  <li><%= link_to "Delete Service", @service, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
+	  </ul>
 	</div>
   </div>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141207232835) do
+ActiveRecord::Schema.define(version: 20141210041902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,10 +86,10 @@ ActiveRecord::Schema.define(version: 20141207232835) do
     t.text     "comments"
     t.integer  "reporter_id"
     t.datetime "startdatetime"
-    t.string   "enddatetime"
     t.datetime "reporteddate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "enddatetime"
   end
 
   add_index "services", ["instrument_id", "created_at"], name: "index_services_on_instrument_id_and_created_at", using: :btree

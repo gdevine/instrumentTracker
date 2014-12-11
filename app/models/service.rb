@@ -11,6 +11,7 @@ class Service < ActiveRecord::Base
   
   validate :validate_instrument_id
   validate :validate_reporter_id
+  validate :start_before_end
   
   
   private 
@@ -22,5 +23,11 @@ class Service < ActiveRecord::Base
   def validate_reporter_id
     errors.add(:reporter_id, "is invalid") unless User.exists?(self.reporter_id)
   end    
-  
+
+  def start_before_end
+    if !self.startdatetime.nil? && !self.startdatetime!="" && !self.enddatetime.nil? && !self.enddatetime!=""
+      errors.add(:base, "End Date cannot precede Start Date") if self.startdatetime > self.enddatetime
+    end
+  end    
+    
 end

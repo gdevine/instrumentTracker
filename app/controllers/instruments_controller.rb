@@ -29,9 +29,10 @@ class InstrumentsController < ApplicationController
   
   def show
     @instrument = Instrument.find(params[:id])
+    @services = @instrument.services.paginate(page: params[:page])
   end
   
-    def edit
+  def edit
     @instrument = Instrument.find(params[:id])
   end
      

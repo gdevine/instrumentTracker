@@ -6,20 +6,45 @@ class ServicesController < ApplicationController
    @services = Service.paginate(page: params[:page])
   end
 
-  # def new
-  # end
-# 
-  # def create
-  # end
-# 
-  # def edit
-  # end
-# 
-  # def update
-  # end
+  def new
+    @instrument = Instrument.find(params[:instrument_id])
+    @service = Service.new
+  end
+
+  def create
+    @instrument = Instrument.find(service_params[:instrument_id])
+    @service = @instrument.services.build(service_params)
+    @service.reporter = current_user
+    
+    if @service.save
+      flash[:success] = "Service record created!"
+      redirect_to @service
+    else
+      @services = []
+      @instrument = Instrument.find(service_params[:instrument_id])
+      render 'services/new'
+    end
+  end
+
+  def edit
+    @service = Service.find(params[:id])
+    @instrument = @service.instrument
+  end
+
+  def update
+    @service = Service.find(params[:id])
+    @instrument = @service.instrument
+    if @service.update_attributes(service_params)
+      flash[:success] = "Service updated"
+      redirect_to @service
+    else
+      render 'edit'
+    end
+  end
 
   def show
     @service = Service.find(params[:id])
+    @instrument = @service.instrument
   end
 
   def destroy
@@ -31,7 +56,7 @@ class ServicesController < ApplicationController
   private
 
     def service_params
-      params.require(:service).permit(:problem, :startdatetime, :enddatetime, :comments, :reporter_id)
+      params.require(:service).permit(:instrument_id, :problem, :startdatetime, :enddatetime, :comments, :reporter_id)
     end
     
     def correct_user

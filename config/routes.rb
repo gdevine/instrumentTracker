@@ -1,22 +1,15 @@
 InstrumentTracker::Application.routes.draw do
 
-  # get "services/index"
-  # get "services/new"
-  # get "services/create"
-  # get "services/edit"
-  # get "services/update"
-  # get "services/show"
-  # get "services/destroy"
-  # get "models/index"
-  # get "models/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   
   devise_for :users
     
-  resources :instruments 
   resources :models, only: [:index, :show]
-  resources :services
+  resources :services, only: [:index, :show, :create, :update, :destroy]
+  resources :instruments do
+    resources :services,  only: [:new, :edit]
+  end
   
   root  'static_pages#home'
   match '/about',       to: 'static_pages#about',   via: 'get'

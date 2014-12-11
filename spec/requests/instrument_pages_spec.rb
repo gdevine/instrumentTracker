@@ -153,16 +153,26 @@ describe "instrument pages:" do
       it { should have_link('Options') }
       it { should have_link('Edit Instrument') }
       it { should have_link('Delete Instrument') }
+      it { should have_link('Add Service Record') }
       
       describe 'should see model details' do
         it { should have_content('Manufacturer') }
-       end
+      end
       
       describe "when clicking the edit button" do
         before { click_link "Edit Instrument" }
         let!(:page_heading) {"Edit Instrument " + @instrument.id.to_s}
         
         describe 'should have a page heading for editing the correct instrument' do
+          it { should have_content(page_heading) }
+        end
+      end 
+      
+      describe "when clicking the add service button" do
+        before { click_link "Add Service Record" }
+        let!(:page_heading) {"New Service Record for Instrument " + @instrument.id.to_s}
+        
+        describe 'should have a page heading for the correct service record' do
           it { should have_content(page_heading) }
         end
       end 
@@ -181,6 +191,21 @@ describe "instrument pages:" do
         it { should have_content(user.firstname) }  
         it { should have_content(new_user1.firstname) }  
         it { should have_content(new_user2.firstname) }  
+              
+      end
+      
+      describe "should show correct services associations" do
+        let!(:first_service) { FactoryGirl.create(:service, instrument_id:@instrument.id ) }
+        let!(:second_service) { FactoryGirl.create(:service, instrument_id:@instrument.id ) }
+        
+        before do 
+          visit instrument_path(@instrument)
+        end
+        
+        it { should have_content('Service History for this Instrument') }
+        it { should have_selector('table tr th', text: 'Service ID') } 
+        it { should have_selector('table tr td', text: first_service.id) } 
+        it { should have_selector('table tr td', text: second_service.id) } 
               
       end
       
@@ -207,6 +232,21 @@ describe "instrument pages:" do
          it { should_not have_link('Edit Container') }
          it { should_not have_link('Delete Container') }
        end 
+       
+       describe "should show correct services associations" do
+        let!(:first_service) { FactoryGirl.create(:service, instrument_id:@instrument.id ) }
+        let!(:second_service) { FactoryGirl.create(:service, instrument_id:@instrument.id ) }
+        
+        before do 
+          visit instrument_path(@instrument)
+        end
+        
+        it { should have_content('Service History for this Instrument') }
+        it { should have_selector('table tr th', text: 'Service ID') } 
+        it { should have_selector('table tr td', text: first_service.id) } 
+        it { should have_selector('table tr td', text: second_service.id) } 
+              
+      end
     end
     
     describe "for non signed-in users" do
@@ -229,6 +269,22 @@ describe "instrument pages:" do
           it { should_not have_link('Edit Container') }
           it { should_not have_link('Delete Container') }
         end 
+        
+        describe "should show correct services associations" do
+          let!(:first_service) { FactoryGirl.create(:service, instrument_id:@instrument.id ) }
+          let!(:second_service) { FactoryGirl.create(:service, instrument_id:@instrument.id ) }
+          
+          before do 
+            visit instrument_path(@instrument)
+          end
+          
+          it { should have_content('Service History for this Instrument') }
+          it { should have_selector('table tr th', text: 'Service ID') } 
+          it { should have_selector('table tr td', text: first_service.id) } 
+          it { should have_selector('table tr td', text: second_service.id) } 
+                
+        end
+        
       end
     end
     

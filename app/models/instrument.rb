@@ -18,8 +18,10 @@ class Instrument < ActiveRecord::Base
   private
 
     def require_at_least_one_user
-      errors.add(:base, "An instrument must have at least one user associated with it") if
-        self.users.count == 0 
+      if !self.id.nil?
+        errors.add(:base, "An instrument must have at least one user associated with it") if
+          self.users.count == 0 
+      end
     end
     
     def limit_to_three_users

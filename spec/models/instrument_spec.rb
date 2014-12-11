@@ -17,6 +17,7 @@ describe Instrument do
   it { should respond_to(:fundingSource) }
   it { should respond_to(:supplier) }
   it { should respond_to(:price) }
+  it { should respond_to(:services) }
   
   it { should respond_to(:model) }
  

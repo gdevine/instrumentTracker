@@ -1,5 +1,5 @@
 <% if @services.any? %>
-  <h5><%= @services.count %> results</h5>
+  <h5 class="topspace20"><%= @services.count %> results</h5>
   <%= will_paginate @services, :param_name => "page" %>
   
   <table class="table table-bordered table-striped table-hover">
