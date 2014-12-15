@@ -1,0 +1,9 @@
+<% provide(:title, @status_type.capitalize + ' List') %>
+<% provide(:pageheading, 'Instruments ' + @status_type.capitalize + ' List') %>
+<!-- <%# provide(:pageheading, 'Instruments '+ @status_type.capitalize+ ' List') %> -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <%= render 'statuses/statuses' %>
+  </div>
+</div>

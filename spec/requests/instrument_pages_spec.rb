@@ -205,8 +205,22 @@ describe "instrument pages:" do
         it { should have_content('Service History for this Instrument') }
         it { should have_selector('table tr th', text: 'Service ID') } 
         it { should have_selector('table tr td', text: first_service.id) } 
-        it { should have_selector('table tr td', text: second_service.id) } 
-              
+        it { should have_selector('table tr td', text: second_service.id) }             
+      end
+      
+      
+      describe "should show correct statuses associations" do
+        let!(:first_status) { FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter: user ) }
+        let!(:second_status) { FactoryGirl.create(:lost, instrument_id:@instrument.id, reporter: user ) }
+        
+        before do 
+          visit instrument_path(@instrument)
+        end
+        
+        it { should have_content('Status History for this Instrument') }
+        it { should have_selector('table tr th', text: 'ID') } 
+        it { should have_selector('table tr td', text: first_status.id) } 
+        it { should have_selector('table tr td', text: second_status.id) }             
       end
       
     end

@@ -1,0 +1,23 @@
+<% if @statuses.any? %>
+  <h5 class="topspace20"><%= @statuses.count %> results</h5>
+  <%# will_paginate @statuses, :param_name => "page" %>
+  
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Instrument Serial Number</th>
+        <th>Status Type</th>
+        <th>Start Date</th>
+        <th>Reported By</th>
+        <!-- <th>View?</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'statuses/statuses_table', collection: @statuses, as: :status %>
+    </tbody>
+  </table>
+  
+<% else %>
+  <p>No Records found</p>
+<% end %>

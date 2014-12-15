@@ -183,7 +183,7 @@ describe "Service pages:" do
       
     end
     
-    describe "who don't own the current container" do
+    describe "who don't own the current record" do
        let(:non_owner) { FactoryGirl.create(:user) }
        before do 
          sign_in(non_owner)

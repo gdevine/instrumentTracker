@@ -16,7 +16,6 @@ FactoryGirl.define do
   end
     
   factory :instrument do
-    # model_id  1 
     sequence(:serialNumber) { |n| "aserialnumber_#{n}" }
     assetNumber 4
     purchaseDate Date.new(2012, 12, 3)
@@ -28,16 +27,46 @@ FactoryGirl.define do
     association :model, :factory  => :model
   end
 
-  factory :service do
-    # instrument_id  1 
+  factory :service do 
     startdatetime DateTime.new(2014, 12, 3)
     enddatetime DateTime.new(2014, 12, 5)
     reporteddate DateTime.now
     problem "This is a dummy issue with this instrument"
-    comments "This is a dummy comment with this instrument"
+    comments "This is a dummy comment with this service"
     
     association :instrument, :factory  => :instrument
     association :reporter, :factory  => :user
   end
   
+  factory :status do 
+    startdate Date.new(2014, 12, 3)
+    current true
+    status_type "loan"
+    comments "This is a dummy comment for this status"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
+  end
+  
+  factory :loan do 
+    startdate Date.new(2014, 12, 3)
+    current true
+    status_type "Loan"
+    loaned_to 'the loanee'
+    comments "This is a dummy comment for this loan"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
+  end
+  
+  factory :lost do 
+    startdate Date.new(2014, 12, 3)
+    current true
+    status_type "Lost"
+    comments "This is a dummy comment for this lost status"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
+  end
+    
 end

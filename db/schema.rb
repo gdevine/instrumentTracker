@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210041902) do
+ActiveRecord::Schema.define(version: 20141211222606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,22 @@ ActiveRecord::Schema.define(version: 20141210041902) do
   end
 
   add_index "services", ["instrument_id", "created_at"], name: "index_services_on_instrument_id_and_created_at", using: :btree
+
+  create_table "statuses", force: true do |t|
+    t.datetime "startdate"
+    t.boolean  "current",       default: false, null: false
+    t.integer  "instrument_id"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reporter_id"
+    t.datetime "enddate"
+    t.string   "loaned_to"
+    t.text     "address"
+    t.string   "status_type"
+  end
+
+  add_index "statuses", ["instrument_id", "created_at"], name: "index_statuses_on_instrument_id_and_created_at", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

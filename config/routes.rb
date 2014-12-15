@@ -7,8 +7,15 @@ InstrumentTracker::Application.routes.draw do
     
   resources :models, only: [:index, :show]
   resources :services, only: [:index, :show, :create, :update, :destroy]
+  resources :statuses, only: [:index]
+  resources :loans, controller: 'statuses', status_type: 'Loan'  
+  resources :losts, controller: 'statuses', status_type: 'Lost'  
+  
   resources :instruments do
     resources :services,  only: [:new, :edit]
+    resources :statuses,  only: [:index, :show, :new, :edit, :create, :update, :destroy]
+    resources :loans, controller: 'statuses', status_type: 'Loan',  only: [:index, :new, :edit]  
+    resources :losts, controller: 'statuses', status_type: 'Lost',  only: [:index, :new, :edit]  
   end
   
   root  'static_pages#home'

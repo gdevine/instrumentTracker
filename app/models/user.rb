@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :instrument_users, :dependent => :destroy
   has_many :instruments, :through => :instrument_users
   has_many :services, :class_name => 'Service', :foreign_key => 'reporter_id', :dependent => :destroy
+  has_many :statuses, :class_name => 'Status', :foreign_key => 'reporter_id', :dependent => :destroy
   
   #return users in alphabetical surname order
   default_scope -> { order('surname ASC') }
