@@ -34,6 +34,10 @@
 		    <li><%= link_to "Edit Instrument", :action => 'edit' %></li>
 		    <li><%= link_to "Add Service Record", new_instrument_service_path(instrument_id:@instrument.id) %> </li>
 		    <li><%= link_to "Delete Instrument", @instrument, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
+		    <li role="presentation" class="divider"></li>
+		    <li role="presentation" class="dropdown-header">Add New Status</li>
+		    <li><%= link_to "Instrument Loan", new_instrument_loan_path(instrument_id:@instrument.id) %> </li>
+		    <li><%= link_to "Instrument Lost", new_instrument_lost_path(instrument_id:@instrument.id) %> </li>
 	    </ul>
 	</div>
   </div>

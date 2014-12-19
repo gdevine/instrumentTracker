@@ -7,13 +7,13 @@ InstrumentTracker::Application.routes.draw do
     
   resources :models, only: [:index, :show]
   resources :services, only: [:index, :show, :create, :update, :destroy]
-  resources :statuses, only: [:index]
-  resources :loans, controller: 'statuses', status_type: 'Loan'  
-  resources :losts, controller: 'statuses', status_type: 'Lost'  
+  resources :statuses, only: [:index, :edit, :create, :update, :destroy]
+  resources :loans, controller: 'statuses', status_type: 'Loan',  only: [:index, :edit, :show, :create, :update, :destroy]
+  resources :losts, controller: 'statuses', status_type: 'Lost',  only: [:index, :edit, :show, :create, :update, :destroy]  
   
   resources :instruments do
-    resources :services,  only: [:new, :edit]
-    resources :statuses,  only: [:index, :show, :new, :edit, :create, :update, :destroy]
+    resources :services,  only: [:index, :new, :edit]
+    resources :statuses,  only: [:index, :create, :update, :destroy]
     resources :loans, controller: 'statuses', status_type: 'Loan',  only: [:index, :new, :edit]  
     resources :losts, controller: 'statuses', status_type: 'Lost',  only: [:index, :new, :edit]  
   end

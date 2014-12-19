@@ -154,6 +154,8 @@ describe "instrument pages:" do
       it { should have_link('Edit Instrument') }
       it { should have_link('Delete Instrument') }
       it { should have_link('Add Service Record') }
+      it { should have_link('Instrument Loan') }
+      it { should have_link('Instrument Lost') }
       
       describe 'should see model details' do
         it { should have_content('Manufacturer') }
@@ -171,6 +173,24 @@ describe "instrument pages:" do
       describe "when clicking the add service button" do
         before { click_link "Add Service Record" }
         let!(:page_heading) {"New Service Record for Instrument " + @instrument.id.to_s}
+        
+        describe 'should have a page heading for the correct service record' do
+          it { should have_content(page_heading) }
+        end
+      end 
+      
+      describe "when clicking the instrument loan button" do
+        before { click_link "Instrument Loan" }
+        let!(:page_heading) {"New Loan Record for Instrument " + @instrument.id.to_s}
+        
+        describe 'should have a page heading for the correct service record' do
+          it { should have_content(page_heading) }
+        end
+      end 
+      
+      describe "when clicking the instrument lost button" do
+        before { click_link "Instrument Lost" }
+        let!(:page_heading) {"New Lost Record for Instrument " + @instrument.id.to_s}
         
         describe 'should have a page heading for the correct service record' do
           it { should have_content(page_heading) }

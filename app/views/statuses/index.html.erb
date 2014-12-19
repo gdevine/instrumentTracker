@@ -1,6 +1,10 @@
 <% provide(:title, @status_type.capitalize + ' List') %>
-<% provide(:pageheading, 'Instruments ' + @status_type.capitalize + ' List') %>
-<!-- <%# provide(:pageheading, 'Instruments '+ @status_type.capitalize+ ' List') %> -->
+
+<% if @instrument %>
+  <% provide(:pageheading, @status_type.capitalize + ' List for Instrument '+@instrument.id.to_s) %>
+<% else %>
+  <% provide(:pageheading, @status_type.capitalize + ' List') %>
+<% end %>
 
 <div class="row">
   <div class="col-xs-12">

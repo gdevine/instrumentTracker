@@ -1,2 +1,65 @@
-<h1>Statuses#new</h1>
-<p>Find me in app/views/statuses/new.html.erb</p>
+<% provide(:title, 'New '+ @status.status_type.capitalize + ' Record') %>
+
+<% provide(:pageheading, 'New '+ @status.status_type.capitalize + ' Record for Instrument ' + @instrument.id.to_s) %>
+
+
+<%= form_for @status, :html => {:class => "form-horizontal"} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <!-- Include hidden instrument element for attaching to correct instrument-->
+  <%= f.hidden_field :instrument_id, :value => @instrument.id %>
+   
+  
+  <div class="form-group">
+    <%= f.label :startdate, 'Start Date', :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8"> 
+      <%= f.date_field :startdate, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <% if @status.status_type == 'Loan' %> 
+	  <div class="form-group">
+	    <%= f.label :enddate, 'End Date', :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8"> 
+	      <%= f.date_field :enddate, :class => "form-control" %>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <%= f.label :address, "Loaned to", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.text_field :loaned_to, :class => "form-control" %>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <%= f.label :address, "Address of Loanee", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.text_area :address, :class => "form-control" %>
+	    </div>
+	  </div>
+  <% end %>
+  
+  <div class="form-group">
+    <%= f.label :comments, "Comments", :class => "col-lg-2 control-label" %>
+    <div class="col-lg-8">
+      <%= f.text_area :comments, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-4 topspace50 bottomspace">
+      <%= f.submit "Submit", :class => "btn btn-large btn-primary" %>
+    </div>
+  </div>
+  
+<% end %>
+
+<!-- <script type="text/javascript">
+$('#projects, #facilities').multiselect({
+    buttonClass : "form-control",
+    buttonWidth: "50%",
+    maxHeight: 400,
+    enableFiltering: true
+});
+</script> -->
