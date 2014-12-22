@@ -32,8 +32,11 @@
 		</a>
 		<ul class="dropdown-menu">
 		  <!-- <li><%# link_to 'Edit ' + @status.status_type.capitalize + ' Record', edit_instrument_status_path(instrument_id:@instrument.id, id:@status.id) %> </li> -->
-		  <li><%= link_to 'Edit ' + @status.status_type.capitalize + ' Record', edit_status_path(id:@status.id) %> </li>
-		  
+		  <% if @status.status_type == 'Loan'%>
+		    <li><%= link_to 'Edit ' + @status.status_type.capitalize + ' Record', edit_loan_path(id:@status.id) %> </li>
+		  <% elsif @status.status_type == 'Lost'%>
+		    <li><%= link_to 'Edit ' + @status.status_type.capitalize + ' Record', edit_lost_path(id:@status.id) %> </li>
+		  <% end %>
 		  <li><%= link_to 'Delete '+ @status.status_type.capitalize + ' Record', @status, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
 	  </ul>
 	</div>

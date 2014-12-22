@@ -3,7 +3,7 @@ class InstrumentsController < ApplicationController
   before_action :correct_user,  only: [:edit, :update, :destroy]
   
   def index   
-    @instruments = Instrument.paginate(page: params[:page])
+    @instruments = Instrument.paginate(page: params[:page], :per_page => 20)
   end
   
   def new
@@ -29,8 +29,8 @@ class InstrumentsController < ApplicationController
   
   def show
     @instrument = Instrument.find(params[:id])
-    @services = @instrument.services.paginate(page: params[:page])
-    @statuses = @instrument.statuses.paginate(page: params[:page])
+    @services = @instrument.services.paginate(page: params[:page], :per_page => 20)
+    @statuses = @instrument.statuses.paginate(page: params[:page], :per_page => 20)
   end
   
   def edit

@@ -1,6 +1,6 @@
 <% if @statuses.any? %>
   <h5 class="topspace20"><%= @statuses.count %> results</h5>
-  <%# will_paginate @statuses, :param_name => "page" %>
+  <%= will_paginate @statuses, :param_name => "page" %>
   
   <table class="table table-bordered table-striped table-hover">
     <thead>

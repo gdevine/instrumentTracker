@@ -3,11 +3,13 @@
 <% provide(:pageheading, 'New '+ @status.status_type.capitalize + ' Record for Instrument ' + @instrument.id.to_s) %>
 
 
-<%= form_for @status, :html => {:class => "form-horizontal"} do |f| %>
+<%# form_for @status, :html => {:class => "form-horizontal"} do |f| %>
+<%= form_for [:instrument, @status], :html => {:class => "form-horizontal"} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
   <!-- Include hidden instrument element for attaching to correct instrument-->
   <%= f.hidden_field :instrument_id, :value => @instrument.id %>
+  <%= f.hidden_field :status_type, :value => @status_type %>
    
   
   <div class="form-group">

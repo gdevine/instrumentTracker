@@ -5,6 +5,6 @@ class ModelsController < ApplicationController
 
   def show
     @model = Model.find(params[:id])
-    @instruments = @model.instruments.paginate(page: params[:page], :per_page => 10)
+    @instruments = @model.instruments.paginate(page: params[:page], :per_page => 20)
   end
 end

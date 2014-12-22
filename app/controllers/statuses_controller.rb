@@ -6,25 +6,32 @@ class StatusesController < ApplicationController
   
   def index
     if params[:instrument_id]
-      @statuses = status_type_class.where(instrument_id:params[:instrument_id]).paginate(page: params[:page])
+      @statuses = status_type_class.where(instrument_id:params[:instrument_id]).paginate(page: params[:page], :per_page => 20)
       @instrument = Instrument.find(params[:instrument_id])
     else
-      @statuses = status_type_class.paginate(page: params[:page])
+      @statuses = status_type_class.paginate(page: params[:page], :per_page => 20)
     end
   end
+
 
   def show
     @status = Status.find(params[:id])
     @instrument = @status.instrument
   end
 
+
   def new
     @instrument = Instrument.find(params[:instrument_id])
     @status = status_type_class.new
   end
 
-  # def edit
-  # end
+
+  def edit
+    # @status = Status.find(params[:id])
+    @status = status_type_class.find(params[:id])
+    @instrument = @status.instrument
+  end
+
 
   def create
     @instrument = Instrument.find(status_params[:instrument_id])
@@ -36,19 +43,39 @@ class StatusesController < ApplicationController
     if @status.save
       flash[:success] = @status.status_type.capitalize + " Record Created!"
       # redirect_to instrument_status_path(instrument_id:@instrument.id, id:@status.id)
-      redirect_to @instrument
+      # redirect_to @instrument
+      @status = Status.find(@status.id)
+      redirect_to @status
     else
       @statuses = []
       @instrument = Instrument.find(status_params[:instrument_id])
-      render 'statuses/new'
+      # render action: 'new'
+      # render status_type_class.new
+      @status_type = @status_type
+      render 'new'
+      # render Status.new(:status_type=>@status.status_type)
     end
   end
    
-  # def update
-  # end
-# 
-  # def destroy
-  # end
+   
+  def update
+    @status = Status.find(params[:id])
+    @instrument = @status.instrument
+    if @status.update_attributes(status_params)
+      flash[:success] = @status.status_type.capitalize + " Record Updated"
+      # redirect_to @instrument
+      redirect_to @status
+    else
+      render 'edit'
+    end
+  end
+
+
+  def destroy
+    @status.destroy
+    flash[:success] = @status.status_type.capitalize + " Record Deleted!"
+    redirect_to @instrument
+  end
   
   
   private
@@ -66,7 +93,7 @@ class StatusesController < ApplicationController
     end
     
     def status_params
-      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id)
+      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id, :status_type)
     end
     
     def correct_user
