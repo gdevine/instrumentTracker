@@ -4,5 +4,10 @@
   <td><%= instrument.serialNumber %> </td>
   <td><%= instrument.assetNumber %> </td>
   <td><%= instrument.purchaseDate %></td>
+  <% if !instrument.current_status.nil? %>
+    <td><%= instrument.current_status.status_type %></td>
+  <% else %>
+    <td> None assigned </td>
+  <% end %>
   <td><%= link_to "View", instrument %></td>
 </tr>

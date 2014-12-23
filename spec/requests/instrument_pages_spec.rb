@@ -157,8 +157,23 @@ describe "instrument pages:" do
       it { should have_link('Instrument Loan') }
       it { should have_link('Instrument Lost') }
       
+      it { should have_content('None assigned') }
+      
       describe 'should see model details' do
         it { should have_content('Manufacturer') }
+      end
+      
+      describe 'should see current status' do
+        it { should have_content('Current Status') }
+      end
+      
+      describe 'should have correct current status details' do
+        let!(:newest_status) { FactoryGirl.create(:lost, startdate:Date.today, instrument:@instrument) }
+        
+        before { visit instrument_path(@instrument) }
+        
+        it { should have_content('Lost') }
+        it { should have_content('View Details') }
       end
       
       describe "when clicking the edit button" do

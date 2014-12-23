@@ -40,7 +40,6 @@ FactoryGirl.define do
   
   factory :status do 
     startdate Date.new(2014, 12, 3)
-    current true
     status_type "loan"
     comments "This is a dummy comment for this status"
     
@@ -50,7 +49,6 @@ FactoryGirl.define do
   
   factory :loan do 
     startdate Date.new(2014, 12, 3)
-    current true
     status_type "Loan"
     loaned_to 'the loanee'
     comments "This is a dummy comment for this loan"
@@ -61,7 +59,6 @@ FactoryGirl.define do
   
   factory :lost do 
     startdate Date.new(2014, 12, 3)
-    current true
     status_type "Lost"
     comments "This is a dummy comment for this lost status"
     

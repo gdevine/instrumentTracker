@@ -154,6 +154,18 @@
   
 </div>
 
+<div class="row topspace20">
+  <div class="col-md-offset-3 col-md-7 well well-blue">
+  	<% if !@current_status.nil? %>
+	    <h4 class="center">Current Status: <%= @current_status.status_type %></h4>
+	    <h5 class="center"><%= link_to "View Details", @current_status %></h5>
+	  <% else %>
+	    <h4 class="center">Current Status: None assigned</h4>
+	  <% end %>
+    
+  </div>
+</div>
+
 
 <div class="row">
   <div class="col-xs-12 rowline">

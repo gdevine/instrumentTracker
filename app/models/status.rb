@@ -3,16 +3,15 @@ class Status < ActiveRecord::Base
   belongs_to :reporter, :class_name => 'User', :foreign_key => 'reporter_id'
   
   self.inheritance_column = :status_type
-  # We will need a way to know which animals
-  # will subclass the Animal model
+  # We will need a way to know which statuses
+  # will subclass the Status model
   def self.status_types
     %w(Loan Lost)
   end
   
-  default_scope -> { order('created_at DESC') }
+  default_scope -> { order('startdate DESC') }
   
   validates :startdate, presence: true
-  validates :current, presence: true
   validates :status_type, presence: true
   validates :instrument_id, presence:true
   validates :reporter_id, presence:true

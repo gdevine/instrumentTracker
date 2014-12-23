@@ -31,6 +31,7 @@ class InstrumentsController < ApplicationController
     @instrument = Instrument.find(params[:id])
     @services = @instrument.services.paginate(page: params[:page], :per_page => 20)
     @statuses = @instrument.statuses.paginate(page: params[:page], :per_page => 20)
+    @current_status = @instrument.current_status
   end
   
   def edit

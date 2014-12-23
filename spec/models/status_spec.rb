@@ -17,7 +17,6 @@ describe Status do
   it { should respond_to(:comments) }
   it { should respond_to(:instrument_id) }
   it { should respond_to(:instrument) }
-  it { should respond_to(:current) }
   it { should respond_to(:reporter_id) }
   it { should respond_to(:reporter) }
   it { should respond_to(:status_type) }
@@ -26,11 +25,6 @@ describe Status do
   
   describe "when startdate is not present" do
     before { @status.startdate = nil }
-    it { should_not be_valid }
-  end
-  
-  describe "when current is not present" do
-    before { @status.current = nil }
     it { should_not be_valid }
   end
   

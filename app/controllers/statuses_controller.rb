@@ -37,7 +37,6 @@ class StatusesController < ApplicationController
     @instrument = Instrument.find(status_params[:instrument_id])
     @status = @instrument.statuses.build(status_params)
     @status.reporter = current_user
-    @status.current = true
     @status.status_type = @status_type
     
     if @status.save

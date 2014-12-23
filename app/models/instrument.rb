@@ -14,6 +14,15 @@ class Instrument < ActiveRecord::Base
   
   # validate :require_at_least_one_user
   validate :limit_to_three_users
+  validate :only_one_current
+ 
+ 
+  def current_status
+    # Return the curent status based on start dates
+    if !self.statuses.empty?
+      Status.where(instrument_id:self.id).where('startdate <= ?', Date.today).order('startdate DESC').order('created_at DESC').first
+    end
+  end
   
   
   private
@@ -28,6 +37,14 @@ class Instrument < ActiveRecord::Base
     def limit_to_three_users
       errors.add(:base, "An instrument can not have more than three users associated with it") if
         self.users.count > 3 
+    end
+    
+    def only_one_current
+      if !self.statuses.empty?
+        currents = self.current_status
+        errors.add(:base, "An instrument can not have more than one status marked as current") if
+          currents.count > 1 
+      end
     end
     
 end

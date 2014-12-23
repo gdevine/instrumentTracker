@@ -110,19 +110,35 @@ describe Instrument do
     
   end
   
-  
-  describe "status associations" do
+  describe "loan status associations" do
     before { @inst.save }
     
     let!(:older_status) do
-      FactoryGirl.create(:loan, instrument:@inst, created_at: 2.days.ago)
+      FactoryGirl.create(:loan, instrument:@inst, startdate: 2.days.ago)
     end
     
     let!(:newer_status) do 
-      FactoryGirl.create(:loan, instrument:@inst, created_at: 1.hour.ago)
+      FactoryGirl.create(:loan, instrument:@inst, startdate: 1.hour.ago)
     end
     
-    it "should have the right statuses in the right order" do
+    it "should have the right loan statuses in the right order" do
+      expect(Instrument.find_by(id:@inst.id).statuses.to_a).to eq [newer_status, older_status]
+    end
+    
+  end
+  
+  describe "lost status associations" do
+    before { @inst.save }
+    
+    let!(:older_status) do
+      FactoryGirl.create(:lost, instrument:@inst, startdate: 2.days.ago)
+    end
+    
+    let!(:newer_status) do 
+      FactoryGirl.create(:lost, instrument:@inst, startdate: 1.hour.ago)
+    end
+    
+    it "should have the right lost statuses in the right order" do
       expect(Instrument.find_by(id:@inst.id).statuses.to_a).to eq [newer_status, older_status]
     end
     
