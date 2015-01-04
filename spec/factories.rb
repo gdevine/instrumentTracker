@@ -65,5 +65,15 @@ FactoryGirl.define do
     association :instrument, :factory  => :instrument
     association :reporter, :factory  => :user
   end
+  
+  factory :facedeployment do 
+    startdate Date.new(2014, 12, 3)
+    status_type "FaceDeployment"
+    ring 3
+    comments "This is a dummy comment for this face deployment status"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
+  end
     
 end
