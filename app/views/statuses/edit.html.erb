@@ -1,6 +1,6 @@
-<% provide(:title, 'Edit '+ @status.status_type.capitalize + ' Record') %>
+<% provide(:title, 'Edit '+ @status.status_type_text + ' Record') %>
 
-<% provide(:pageheading, 'Edit '+ @status.status_type.capitalize + ' Record ' + @status.id.to_s + ' for Instrument '+ @instrument.id.to_s) %>
+<% provide(:pageheading, 'Edit '+ @status.status_type_text + ' Record ' + @status.id.to_s + ' for Instrument '+ @instrument.id.to_s) %>
 
 
 <%= form_for @status, :html => {:class => "form-horizontal"} do |f| %>
@@ -36,6 +36,36 @@
 	    <%= f.label :address, "Address of Loanee", :class => "col-lg-2 control-label" %>
 	    <div class="col-lg-8">
 	      <%= f.text_area :address, :class => "form-control" %>
+	    </div>
+	  </div>
+  <% end %>
+  
+  <% if @status.status_type == 'Facedeployment' %> 
+	  <div class="form-group">
+	    <%= f.label :ring, 'Ring', :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8"> 
+	      <%= f.number_field :ring, :class => "form-control" %>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <%= f.label :northing, "Northing", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.number_field :northing, :class => "form-control", :step => 0.01 %>
+	    </div>
+	  </div>
+	  	  
+	  <div class="form-group">
+	    <%= f.label :easting, "Easting", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.number_field :easting, :class => "form-control", :step => 0.01 %>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <%= f.label :vertical, "Vertical", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.number_field :vertical, :class => "form-control", :step => 'any' %>
 	    </div>
 	  </div>
   <% end %>

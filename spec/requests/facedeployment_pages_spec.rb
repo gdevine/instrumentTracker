@@ -287,130 +287,107 @@ describe "FACE Deployment pages:" do
   end
   
   
-  # describe "edit page" do
-#     
-    # before do 
-      # @instrument = FactoryGirl.create(:instrument)
-      # @instrument.users << user
-      # @instrument.save  
-      # @loan = FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter:user)
-    # end 
-#     
-    # describe "for signed-in users who are an owner of the instrument" do
-#       
-      # before do 
-        # sign_in(user) 
-        # visit edit_loan_path(@loan)
-      # end 
-#       
-      # it { should have_content('Edit Loan Record ' + @loan.id.to_s + ' for Instrument '+ @instrument.id.to_s) }
-      # it { should have_title(full_title('Edit Loan Record')) }
-      # it { should_not have_title('| Home') }
-#       
-      # describe "with invalid loaned to information" do
-#         
-          # before do
-            # fill_in 'loan_loaned_to', with: ''
-            # click_button "Update"
-          # end
-#           
-          # describe "should return an error" do
-            # it { should have_content('error') }
-          # end
-#   
-      # end
-#       
-      # describe "with an end date before a start date" do
-#         
-        # before do
-          # fill_in 'loan_startdate', with: Date.new(2014, 8, 11)
-          # fill_in 'loan_enddate', with: Date.new(2014, 7, 11)
-        # end
-#         
-        # it "should not create a Loan" do
-          # expect { click_button "Update" }.not_to change(Status, :count)
-        # end
-#                 
-        # describe "it should have a targeted error" do
-          # before do
-            # click_button "Update"
-          # end
-#       
-          # describe "should return an error" do
-            # it { should have_content('End Date cannot precede Start Date') }
-          # end   
-        # end
-#         
-      # end
-#   
-      # describe "with valid information" do
-#   
-        # before do
-          # fill_in 'loan_loaned_to'  , with: 'edited loaned to'
-        # end
-#         
-        # it "should update, not add a status" do
-          # expect { click_button "Update" }.not_to change(Status, :count).by(1)
-        # end
-#         
-        # describe "should return to view page" do
-          # before { click_button "Update" }
-          # it { should have_content('Loan Record Updated') }
-          # it { should have_title(full_title('Loan Record View')) }
-        # end
-#       
-      # end
-#       
-    # end  
-#     
-    # describe "for signed-in users who are not an owner" do
-      # let(:non_owner) { FactoryGirl.create(:user) }
-      # before do 
-        # sign_in(non_owner)
-        # visit edit_loan_path(@loan)
-      # end 
-#       
-      # describe 'should have a page heading for the correct service' do
-        # it { should_not have_content('Edit') }
-        # it { should have_title('Home') }
-        # it { should have_content('Welcome to HIE Instrument Tracker') }
-      # end
-    # end
-#     
-    # describe "for non signed-in users" do
-      # describe "should be redirected back to signin" do
-        # before { visit edit_loan_path(@loan) }
-        # it { should have_title('Sign in') }
-      # end
-    # end
-  # end
-#   
-#   
-  # describe "loan destruction" do
-    # before do 
-      # @instrument = FactoryGirl.create(:instrument)
-      # @instrument.users << user
-      # @instrument.save 
-      # @loan = FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter:user)
-    # end 
-#     
-    # describe "for signed-in users who are an owner" do  
-      # before do 
-        # sign_in(user) 
-        # visit loan_path(@loan)
-      # end   
-#       
-      # it "should delete" do
-        # expect { click_link "Delete Loan Record" }.to change(Status, :count).by(-1)
-      # end
-#       
-      # describe "should return to view page" do
-        # before { click_link "Delete Loan Record" }
-        # it { should have_content('Loan Record Deleted') }
-        # it { should have_title(full_title('Instrument View')) }
-      # end
-    # end
-  # end
+  describe "edit page" do
+    
+    before do 
+      @instrument = FactoryGirl.create(:instrument)
+      @instrument.users << user
+      @instrument.save  
+      @facedeployment = FactoryGirl.create(:facedeployment, instrument_id:@instrument.id, reporter:user)
+    end 
+    
+    describe "for signed-in users who are an owner of the instrument" do
+      
+      before do 
+        sign_in(user) 
+        visit edit_facedeployment_path(@facedeployment)
+      end 
+      
+      it { should have_content('Edit FACE Deployment Record ' + @facedeployment.id.to_s + ' for Instrument '+ @instrument.id.to_s) }
+      it { should have_title(full_title('Edit FACE Deployment Record')) }
+      it { should_not have_title('| Home') }
+      
+      describe "with invalid ring information" do
+        
+          before do
+            fill_in 'facedeployment_ring', with: ''
+            click_button "Update"
+          end
+          
+          describe "should return an error" do
+            it { should have_content('error') }
+          end
+  
+      end
+  
+      describe "with valid information" do
+  
+        before do
+          fill_in 'facedeployment_ring'  , with: 2
+        end
+        
+        it "should update, not add a status" do
+          expect { click_button "Update" }.not_to change(Status, :count).by(1)
+        end
+        
+        describe "should return to view page" do
+          before { click_button "Update" }
+          it { should have_content('FACE Deployment Record Updated') }
+          it { should have_title(full_title('FACE Deployment Record View')) }
+        end
+      
+      end
+      
+    end  
+    
+    describe "for signed-in users who are not an owner" do
+      let(:non_owner) { FactoryGirl.create(:user) }
+      before do 
+        sign_in(non_owner)
+        visit edit_facedeployment_path(@facedeployment)
+      end 
+      
+      describe 'should redirect to home page' do
+        it { should_not have_content('Edit') }
+        it { should have_title('Home') }
+        it { should have_content('Welcome to HIE Instrument Tracker') }
+      end
+    end
+    
+    describe "for non signed-in users" do
+      describe "should be redirected back to signin" do
+        before { visit edit_facedeployment_path(@facedeployment) }
+        it { should have_title('Sign in') }
+      end
+    end
+  end
+  
+  
+  describe "Face deployment destruction" do
+    before do 
+      @instrument = FactoryGirl.create(:instrument)
+      @instrument.users << user
+      @instrument.save 
+      @facedeployment = FactoryGirl.create(:facedeployment, instrument_id:@instrument.id, reporter:user)
+    end 
+    
+    describe "for signed-in users who are an owner" do  
+      before do 
+        sign_in(user) 
+        visit facedeployment_path(@facedeployment)
+      end   
+      
+      it "should delete" do
+        expect { click_link "Delete FACE Deployment Record" }.to change(Status, :count).by(-1)
+      end
+      
+      describe "should return to view page" do
+        before { click_link "Delete FACE Deployment Record" }
+        it { should have_content('FACE Deployment Record Deleted') }
+        it { should have_title(full_title('Instrument View')) }
+      end
+    end
+  end
   
 
 end

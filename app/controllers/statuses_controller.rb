@@ -62,7 +62,7 @@ class StatusesController < ApplicationController
     @status = Status.find(params[:id])
     @instrument = @status.instrument
     if @status.update_attributes(status_params)
-      flash[:success] = @status.status_type.capitalize + " Record Updated"
+      flash[:success] = @status.status_type_text + " Record Updated"
       # redirect_to @instrument
       redirect_to @status
     else
@@ -73,7 +73,7 @@ class StatusesController < ApplicationController
 
   def destroy
     @status.destroy
-    flash[:success] = @status.status_type.capitalize + " Record Deleted!"
+    flash[:success] = @status.status_type_text + " Record Deleted!"
     redirect_to @instrument
   end
   
