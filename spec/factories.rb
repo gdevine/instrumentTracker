@@ -68,7 +68,7 @@ FactoryGirl.define do
   
   factory :facedeployment do 
     startdate Date.new(2014, 12, 3)
-    status_type "FaceDeployment"
+    status_type "Facedeployment"
     ring 3
     comments "This is a dummy comment for this face deployment status"
     

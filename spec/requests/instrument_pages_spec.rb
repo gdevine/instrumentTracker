@@ -156,6 +156,7 @@ describe "instrument pages:" do
       it { should have_link('Add Service Record') }
       it { should have_link('Instrument Loan') }
       it { should have_link('Instrument Lost') }
+      it { should have_link('FACE Deployment') }
       
       it { should have_content('None assigned') }
       
@@ -211,7 +212,16 @@ describe "instrument pages:" do
           it { should have_content(page_heading) }
         end
       end 
-      
+ 
+       describe "when clicking the face deployment button" do
+        before { click_link "FACE Deployment" }
+        let!(:page_heading) {"New FACE Deployment for Instrument " + @instrument.id.to_s}
+        
+        describe 'should have a page heading for the correct service record' do
+          it { should have_content(page_heading) }
+        end
+      end 
+           
       describe "should show correct user/owner associations" do
         let!(:new_user1) { FactoryGirl.create(:user) }
         let!(:new_user2) { FactoryGirl.create(:user) }
@@ -247,6 +257,7 @@ describe "instrument pages:" do
       describe "should show correct statuses associations" do
         let!(:first_status) { FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter: user ) }
         let!(:second_status) { FactoryGirl.create(:lost, instrument_id:@instrument.id, reporter: user ) }
+        let!(:third_status) { FactoryGirl.create(:facedeployment, instrument_id:@instrument.id, reporter: user ) }
         
         before do 
           visit instrument_path(@instrument)
@@ -256,11 +267,12 @@ describe "instrument pages:" do
         it { should have_selector('table tr th', text: 'ID') } 
         it { should have_selector('table tr td', text: first_status.id) } 
         it { should have_selector('table tr td', text: second_status.id) }             
+        it { should have_selector('table tr td', text: third_status.id) }             
       end
       
     end
     
-    describe "who don't own the current container" do
+    describe "who don't own the current instrument" do
        let(:non_owner) { FactoryGirl.create(:user) }
        before do 
          sign_in(non_owner)

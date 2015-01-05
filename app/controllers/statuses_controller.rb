@@ -1,5 +1,6 @@
 class StatusesController < ApplicationController
   before_action :set_status_type
+  before_action :set_status_type_text
   before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :correct_user,  only: [:edit, :update, :destroy]
   
@@ -82,9 +83,26 @@ class StatusesController < ApplicationController
     def set_status_type 
       @status_type = status_type 
     end
-
+    
+    def set_status_type_text 
+      @status_type_text = status_type_text 
+    end
+    
     def status_type 
       Status.status_types.include?(params[:status_type]) ? params[:status_type] : "Status"
+    end
+    
+    def status_type_text
+      case status_type
+      when 'Loan'
+        'Loan'
+      when 'Lost'
+        'Lost'
+      when 'Facedeployment'
+        'FACE Deployment'
+      else
+        'Status'
+      end
     end
     
     def status_type_class 
@@ -92,7 +110,7 @@ class StatusesController < ApplicationController
     end
     
     def status_params
-      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id, :status_type)
+      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id, :status_type, :ring, :northing, :easting, :vertical)
     end
     
     def correct_user

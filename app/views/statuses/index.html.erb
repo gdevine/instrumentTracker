@@ -1,9 +1,9 @@
-<% provide(:title, @status_type.capitalize + ' List') %>
+<% provide(:title, @status_type_text + ' List') %>
 
 <% if @instrument %>
-  <% provide(:pageheading, @status_type.capitalize + ' List for Instrument '+@instrument.id.to_s) %>
+  <% provide(:pageheading, @status_type_text + ' List for Instrument '+@instrument.id.to_s) %>
 <% else %>
-  <% provide(:pageheading, @status_type.capitalize + ' List') %>
+  <% provide(:pageheading, @status_type_text + ' List') %>
 <% end %>
 
 <div class="row">

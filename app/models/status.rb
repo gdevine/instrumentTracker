@@ -6,7 +6,8 @@ class Status < ActiveRecord::Base
   # We will need a way to know which statuses
   # will subclass the Status model
   def self.status_types
-    %w(Loan Lost FaceDeployment)
+    # %w(Loan Lost Facedeployment)
+    ['Loan', 'Lost', 'Facedeployment']
   end
   
   default_scope -> { order('startdate DESC') }
@@ -20,6 +21,19 @@ class Status < ActiveRecord::Base
   validate :validate_reporter_id
   validate :start_before_end
   
+  def status_type_text
+    case status_type
+    when 'Loan'
+      'Loan'
+    when 'Lost'
+      'Lost'
+    when 'Facedeployment'
+      'FACE Deployment'
+    else
+      'Status'
+    end
+  end
+ 
   
   private 
     
