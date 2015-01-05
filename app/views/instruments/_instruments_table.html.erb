@@ -5,7 +5,7 @@
   <td><%= instrument.assetNumber %> </td>
   <td><%= instrument.purchaseDate %></td>
   <% if !instrument.current_status.nil? %>
-    <td><%= instrument.current_status.status_type %></td>
+    <td><%= instrument.current_status.status_type_text %></td>
   <% else %>
     <td> None assigned </td>
   <% end %>

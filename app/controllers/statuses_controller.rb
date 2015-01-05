@@ -41,7 +41,7 @@ class StatusesController < ApplicationController
     @status.status_type = @status_type
     
     if @status.save
-      flash[:success] = @status.status_type.capitalize + " Record Created!"
+      flash[:success] = @status.status_type_text + " Record Created!"
       # redirect_to instrument_status_path(instrument_id:@instrument.id, id:@status.id)
       # redirect_to @instrument
       @status = Status.find(@status.id)

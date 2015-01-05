@@ -143,7 +143,7 @@ describe "Loan pages:" do
       describe "with invalid information" do
         
         it "should not create a Loan Record" do
-          expect { click_button "Submit" }.not_to change(Service, :count)
+          expect { click_button "Submit" }.not_to change(Status, :count)
         end
                 
         before do
@@ -204,7 +204,7 @@ describe "Loan pages:" do
     
     describe "for non signed-in users" do
       describe "should be redirected back to signin" do
-        before { visit new_instrument_service_path(instrument_id:@instrument.id) }
+        before { visit new_instrument_loan_path(instrument_id:@instrument.id) }
         it { should have_title('Sign in') }
       end
     end
@@ -264,7 +264,7 @@ describe "Loan pages:" do
        
        let!(:page_heading) {"Instrument Loan Record"}
         
-       describe 'should have a page heading for the correct service' do
+       describe 'should have a page heading for the correct loan' do
           it { should have_selector('h2', :text => page_heading) }
        end
        
@@ -291,7 +291,7 @@ describe "Loan pages:" do
         
         let!(:page_heading) {"Instrument Loan Record"}
         
-        describe 'should have a page heading for the correct service' do
+        describe 'should have a page heading for the correct loan' do
           it { should have_selector('h2', :text => page_heading) }
         end
         
@@ -393,7 +393,7 @@ describe "Loan pages:" do
         visit edit_loan_path(@loan)
       end 
       
-      describe 'should have a page heading for the correct service' do
+      describe 'should have a page heading for the correct loan' do
         it { should_not have_content('Edit') }
         it { should have_title('Home') }
         it { should have_content('Welcome to HIE Instrument Tracker') }

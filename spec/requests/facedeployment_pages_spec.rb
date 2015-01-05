@@ -120,96 +120,73 @@ describe "FACE Deployment pages:" do
   end
   
   
-  # describe "New page" do
-#               
-    # before do 
-      # @instrument = FactoryGirl.create(:instrument)
-      # @instrument.users << user
-      # @instrument.save  
-    # end
-#     
-    # describe "for signed-in users creating a loan record" do
-#       
-      # before do 
-        # sign_in user
-        # visit new_instrument_loan_path(instrument_id:@instrument.id)
-      # end          
-#       
-      # it { should have_content('New Loan Record for Instrument '+@instrument.id.to_s) }
-      # it { should have_title(full_title('New Loan Record')) }
-      # it { should_not have_title('| Home') }
-      # it { should have_content('Loaned to') }
-#       
-      # describe "with invalid information" do
-#         
-        # it "should not create a Loan Record" do
-          # expect { click_button "Submit" }.not_to change(Service, :count)
-        # end
-#                 
-        # before do
-          # click_button "Submit"
-        # end
-#         
-        # describe "should return an error" do
-          # it { should have_content('error') }
-        # end
-#         
-      # end
-#       
-      # describe "with an end date before a start date" do
-#         
-        # before do
-          # fill_in 'loan_startdate', with: Date.new(2014, 8, 11)
-          # fill_in 'loan_enddate', with: Date.new(2014, 7, 11)
-          # fill_in 'loan_loaned_to', with: 'a dummy problem'
-        # end
-#         
-        # it "should not create a Loan record" do
-          # expect { click_button "Submit" }.not_to change(Status, :count)
-        # end
-#                 
-        # describe "it should have a targeted error" do
-          # before do
-            # click_button "Submit"
-          # end
-#       
-          # describe "should return an error" do
-            # it { should have_content('End Date cannot precede Start Date') }
-          # end   
-        # end
-#         
-      # end
-#      
-      # describe "with valid information" do
-#         
-        # before do
-          # fill_in 'loan_startdate', with: Date.new(2012, 12, 3)
-          # fill_in 'loan_loaned_to', with: 'a dummy loanee'
-        # end
-#         
-        # it "should create a status" do
-          # expect { click_button "Submit" }.to change(Status, :count).by(1)
-        # end
-#         
-        # describe "should return to Instrument page" do
-          # before { click_button "Submit" }
-          # it { should have_content('Loan Record Created!') }
-          # it { should have_title(full_title('Loan Record View')) }  
-          # it { should have_selector('h2', "Instrument "+ @instrument.id.to_s) }
-        # end
-#         
-      # end  
-#       
-    # end
-#     
-    # describe "for non signed-in users" do
-      # describe "should be redirected back to signin" do
-        # before { visit new_instrument_service_path(instrument_id:@instrument.id) }
-        # it { should have_title('Sign in') }
-      # end
-    # end
-#     
-  # end
+  describe "New page" do
+              
+    before do 
+      @instrument = FactoryGirl.create(:instrument)
+      @instrument.users << user
+      @instrument.save  
+    end
+    
+    describe "for signed-in users creating a face deployment record" do
+      
+      before do 
+        sign_in user
+        visit new_instrument_facedeployment_path(instrument_id:@instrument.id)
+      end          
+      
+      it { should have_content('New FACE Deployment Record for Instrument '+@instrument.id.to_s) }
+      it { should have_title(full_title('New FACE Deployment Record')) }
+      it { should_not have_title('| Home') }
+      it { should have_content('Ring') }
+      it { should have_content('Northing') }
+      
+      describe "with invalid information" do
+        
+        it "should not create a Face Deployment Record" do
+          expect { click_button "Submit" }.not_to change(Status, :count)
+        end
+                
+        before do
+          click_button "Submit"
+        end
+        
+        describe "should return an error" do
+          it { should have_content('error') }
+        end
+        
+      end
+     
+      describe "with valid information" do
+        
+        before do
+          fill_in 'facedeployment_startdate', with: Date.new(2012, 12, 3)
+          fill_in 'facedeployment_ring', with: 4
+        end
+        
+        it "should create a status" do
+          expect { click_button "Submit" }.to change(Status, :count).by(1)
+        end
+        
+        describe "should return to Instrument page" do
+          before { click_button "Submit" }
+          it { should have_content('FACE Deployment Record Created!') }
+          it { should have_title(full_title('FACE Deployment Record View')) }  
+          it { should have_selector('h2', "Instrument "+ @instrument.id.to_s) }
+        end
+        
+      end  
+      
+    end
+    
+    describe "for non signed-in users" do
+      describe "should be redirected back to signin" do
+        before { visit new_instrument_facedeployment_path(instrument_id:@instrument.id) }
+        it { should have_title('Sign in') }
+      end
+    end
+    
+  end
   
   
   describe "Show page" do

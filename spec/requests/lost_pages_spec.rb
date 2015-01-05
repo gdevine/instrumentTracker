@@ -143,7 +143,7 @@ describe "Lost pages:" do
       describe "with invalid information" do
         
         it "should not create a Lost Record" do
-          expect { click_button "Submit" }.not_to change(Service, :count)
+          expect { click_button "Submit" }.not_to change(Status, :count)
         end
                 
         before do
@@ -181,7 +181,7 @@ describe "Lost pages:" do
     
     describe "for non signed-in users" do
       describe "should be redirected back to signin" do
-        before { visit new_instrument_service_path(instrument_id:@instrument.id) }
+        before { visit new_instrument_lost_path(instrument_id:@instrument.id) }
         it { should have_title('Sign in') }
       end
     end
@@ -241,7 +241,7 @@ describe "Lost pages:" do
        
        let!(:page_heading) {"Instrument Lost Record"}
         
-       describe 'should have a page heading for the correct service' do
+       describe 'should have a page heading for the correct lost record' do
           it { should have_selector('h2', :text => page_heading) }
        end
        
@@ -268,7 +268,7 @@ describe "Lost pages:" do
         
         let!(:page_heading) {"Instrument Lost Record"}
         
-        describe 'should have a page heading for the correct service' do
+        describe 'should have a page heading for the correct lost record' do
           it { should have_selector('h2', :text => page_heading) }
         end
         
@@ -344,7 +344,7 @@ describe "Lost pages:" do
         visit edit_lost_path(@lost)
       end 
       
-      describe 'should have a page heading for the correct service' do
+      describe 'should have a page heading for the correct lost record' do
         it { should_not have_content('Edit') }
         it { should have_title('Home') }
         it { should have_content('Welcome to HIE Instrument Tracker') }

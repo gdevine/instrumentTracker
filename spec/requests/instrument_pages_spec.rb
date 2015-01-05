@@ -213,9 +213,9 @@ describe "instrument pages:" do
         end
       end 
  
-       describe "when clicking the face deployment button" do
+      describe "when clicking the face deployment button" do
         before { click_link "FACE Deployment" }
-        let!(:page_heading) {"New FACE Deployment for Instrument " + @instrument.id.to_s}
+        let!(:page_heading) {"New FACE Deployment Record for Instrument " + @instrument.id.to_s}
         
         describe 'should have a page heading for the correct service record' do
           it { should have_content(page_heading) }
