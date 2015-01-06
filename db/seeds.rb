@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require 'factory_girl'
+
+# require Rails.root.join('spec/spec_helper.rb')
+require Rails.root.join('spec/factories.rb')
+
+
+# Users
+5.times do
+  FactoryGirl.create :user
+end

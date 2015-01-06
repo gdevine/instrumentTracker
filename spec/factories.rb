@@ -1,9 +1,9 @@
 FactoryGirl.define do
   
   factory :user do
-    sequence(:firstname)  { |n| "Person_#{n}" }
-    sequence(:surname)  { |n| "BlaBla_#{n}" }
-    sequence(:email) { |n| "person_#{n}@example.com" }
+    firstname { Faker::Name.first_name }
+    surname { Faker::Name.last_name }
+    email { Faker::Internet.free_email }
     password "foobar100"
     password_confirmation "foobar100"  
     approved true
@@ -16,20 +16,20 @@ FactoryGirl.define do
   end
     
   factory :instrument do
-    sequence(:serialNumber) { |n| "aserialnumber_#{n}" }
-    assetNumber 4
-    purchaseDate Date.new(2012, 12, 3)
+    serialNumber { Faker::Company.duns_number }
+    assetNumber { Faker::Company.ein }
+    purchaseDate { Faker::Date.between(200.days.ago, 100.days.ago) }
     fundingSource "ARC Grant"
-    retirementDate Date.new(2014, 12, 3)
+    retirementDate { Faker::Date.between(30.days.ago, Date.today) }
     supplier "A dummy supplier"
-    price 2435.00
+    price { Faker::Commerce.price }
     
     association :model, :factory  => :model
   end
 
   factory :service do 
-    startdatetime DateTime.new(2014, 12, 3)
-    enddatetime DateTime.new(2014, 12, 5)
+    startdatetime { Faker::Date.between(100.days.ago, 90.days.ago) }
+    enddatetime { Faker::Date.between(89.days.ago, 80.days.ago) }
     reporteddate DateTime.now
     problem "This is a dummy issue with this instrument"
     comments "This is a dummy comment with this service"
@@ -39,7 +39,7 @@ FactoryGirl.define do
   end
   
   factory :status do 
-    startdate Date.new(2014, 12, 3)
+    startdate { Faker::Date.between(100.days.ago, Date.today) }
     status_type "loan"
     comments "This is a dummy comment for this status"
     
@@ -48,9 +48,9 @@ FactoryGirl.define do
   end
   
   factory :loan do 
-    startdate Date.new(2014, 12, 3)
+    startdate { Faker::Date.between(30.days.ago, Date.today) }
     status_type "Loan"
-    loaned_to 'the loanee'
+    loaned_to { Faker::Name.name }
     comments "This is a dummy comment for this loan"
     
     association :instrument, :factory  => :instrument
@@ -58,7 +58,7 @@ FactoryGirl.define do
   end
   
   factory :lost do 
-    startdate Date.new(2014, 12, 3)
+    startdate { Faker::Date.between(60.days.ago, Date.today) }
     status_type "Lost"
     comments "This is a dummy comment for this lost status"
     
@@ -67,9 +67,9 @@ FactoryGirl.define do
   end
   
   factory :facedeployment do 
-    startdate Date.new(2014, 12, 3)
+    startdate { Faker::Date.between(70.days.ago, Date.today) }
     status_type "Facedeployment"
-    ring 3
+    ring { Faker::Number.between(1, 6) }
     comments "This is a dummy comment for this face deployment status"
     
     association :instrument, :factory  => :instrument
