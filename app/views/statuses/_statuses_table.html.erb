@@ -2,7 +2,7 @@
   <td><%= status.id %></td>
   <td><%= status.instrument.serialNumber %> </td>
   <td><%= status.status_type_text %> </td>
-  <td><%= status.startdate %> </td>
+  <td><%= status.startdate.strftime('%a %b %d %Y') %> </td>
   <td><%= status.reporter.firstname %> <%= status.reporter.surname %> </td>
   <td><%= link_to "View", status %></td>
 </tr>

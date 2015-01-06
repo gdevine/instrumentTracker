@@ -1,8 +1,12 @@
 <tr>
   <td><%= service.id %></td>
   <td><%= service.instrument.serialNumber %> </td>
-  <td><%= service.startdatetime %> </td>
-  <td><%= service.enddatetime %> </td>
+  <td><%= service.startdatetime.strftime('%a %b %d %Y') %> </td>
+  <td>
+		<% if service.enddatetime %> 
+  	  <%= service.enddatetime.strftime('%a %b %d %Y') %> 
+  	<% end %>
+  </td>
   <td><%= service.reporter.firstname %> <%= service.reporter.surname %> </td>
   <td><%= link_to "View", service %></td>
 </tr>

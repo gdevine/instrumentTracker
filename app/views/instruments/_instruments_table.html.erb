@@ -3,7 +3,7 @@
   <td><%= instrument.model.full_name %> </td>
   <td><%= instrument.serialNumber %> </td>
   <td><%= instrument.assetNumber %> </td>
-  <td><%= instrument.purchaseDate %></td>
+  <td><%= instrument.purchaseDate.strftime('%a %b %d %Y') %></td>
   <% if !instrument.current_status.nil? %>
     <td><%= instrument.current_status.status_type_text %></td>
   <% else %>

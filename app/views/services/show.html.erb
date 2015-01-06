@@ -82,7 +82,7 @@
 		    <p class="text-left">Start Date/Time</p>
 		  </div>   
 		  <div class="col-md-6">
-		    <p class="text-muted"><%= @service.startdatetime %></p>
+		    <p class="text-muted"><%= @service.startdatetime.strftime('%a %b %d %Y') %></p>
 		  </div>
 		</div>
 		
@@ -91,7 +91,11 @@
 		    <p class="text-left">End Date/Time</p>
 		  </div>   
 		  <div class="col-md-6">
-		    <p class="text-muted"><%= @service.enddatetime %></p>
+		    <p class="text-muted">
+		  	  <% if @service.enddatetime %> 
+		  	    <%= @service.enddatetime.strftime('%a %b %d %Y') %>
+		  	  <% end %>
+		  	</p> 
 		  </div>
 		</div>
 		
@@ -118,7 +122,7 @@
 		    <p class="text-left">Record reported on</p>
 		  </div>   
 		  <div class="col-md-6">
-		    <p class="text-muted"><%= @service.created_at.to_date %></p>
+		    <p class="text-muted"><%= @service.created_at.to_date.strftime('%a %b %d %Y') %></p>
 		  </div>
 		</div>
 		
