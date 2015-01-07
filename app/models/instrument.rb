@@ -18,7 +18,7 @@ class Instrument < ActiveRecord::Base
  
  
   def current_status
-    # Return the curent status based on start dates
+    # Return the current status based on start dates
     if !self.statuses.empty?
       Status.where(instrument_id:self.id).where('startdate <= ?', Date.today).order('startdate DESC').order('created_at DESC').first
     end

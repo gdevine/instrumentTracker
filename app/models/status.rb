@@ -33,6 +33,11 @@ class Status < ActiveRecord::Base
       'Status'
     end
   end
+  
+  def current
+    # Returns true/false whether this is the current status
+      Status.where(instrument_id:self.instrument_id).where('startdate <= ?', Date.today).order('startdate DESC').order('created_at DESC').first == self
+  end
  
   
   private 

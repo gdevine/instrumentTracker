@@ -1,33 +1,26 @@
 <% provide(:title, 'Dashboard') %>
 <% provide(:pageheading, "Instrument Tracker Dashboard") %>
   
-<div class="row">
-  <div class="col-md-11">
-    <h4></h4>
-  </div>
-  <div class="col-md-1">
+<div class="row topspace50">
+  <div class="col-md-10 col-md-offset-1">
     
-    <!-- Help Button popup -->
-	<button class="btn btn-default btn-block" data-toggle="modal" data-target="#DashboardHelp">
-	  Guide
-	</button>
-	
-	<!-- Modal -->
-	<div class="modal fade" id="DashboardHelp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Dashboard</h4>
-	      </div>
-	      <div class="modal-body">
-	        The Dashboard page gives an overview of all entities that belong to you and that you manage. In particular, it lists all Samples, Sample Sets 
-	        and Containers that you have ownership for. You can navigate to any particular entity by using the 'View' link within the relevant listed tables.
-	      </div>
-	    </div>
-	  </div>
-	</div>
+    <div class="col-md-12 well well-blue">
+      <h4 class="center">Total Number of registered Instruments</h4> 
+      <h2 class="center"><%= @total_instruments %></h2>
+    </div>
    
+    <div class="col-md-12 well well-semigreen">
+      <h4 class="center">Instruments currently deployed at FACE</h4> 
+      <h2 class="center"><%= current_instruments('Facedeployment').count %></h2>
+    </div>
+    <div class="col-md-12 well well-blue">
+      <h4 class="center">Instruments currently on Loan</h4> 
+      <h2 class="center"><%= current_instruments('Loan').count %></h2>
+    </div>
+    <div class="col-md-12 well well-semigreen">
+      <h4 class="center">Instruments currently registered as Lost</h4> 
+      <h2 class="center"><%= current_instruments('Lost').count %></h2>
+    </div>
   </div>
 </div>
 
