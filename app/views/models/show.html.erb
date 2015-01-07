@@ -70,21 +70,8 @@
 <div class="row">
   <div class="col-xs-12 rowline">
     <h4>Instruments of this model type at HIE</h4>
-    <% @model.instruments.each do |inst| %>
-      <div class="row topspace20">
-      	<div class="col-xs-offset-1">
-          <%= inst.serialNumber %>
-        </div>
-      </div>
-    <% end %>
-    
-    
+    <p class="topspace20"></p>
     <%= render 'instruments/instruments' %>
   </div>
 </div>
 
-<!-- <div class="row">
-  <div class="col-xs-12">
-    <%# render 'samples/samples' %>
-  </div>
-</div> -->

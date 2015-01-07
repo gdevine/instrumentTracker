@@ -3,7 +3,8 @@ class InstrumentsController < ApplicationController
   before_action :correct_user,  only: [:edit, :update, :destroy]
   
   def index   
-    @instruments = Instrument.paginate(page: params[:page], :per_page => 20)
+    # @instruments = Instrument.paginate(page: params[:page], :per_page => 20)
+    @instruments = Instrument.all   # Now using datatables for index table - no need for pagination
   end
   
   def new

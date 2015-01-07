@@ -67,7 +67,7 @@ describe "instrument pages:" do
     
     describe "for signed-in users with models in the system" do
       
-      let!(:mymod) { FactoryGirl.create(:model) } 
+      let!(:mymod) { FactoryGirl.create(:model) } # Needed to make sure something appears in the dropdown
       
       before do 
         sign_in user

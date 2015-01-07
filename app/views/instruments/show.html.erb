@@ -172,11 +172,7 @@
   <div class="col-xs-12 rowline">
     <h4>Contacts for this Instrument</h4>
     <% @instrument.users.each do |contact| %>
-      <div class="row topspace20">
-      	<div class="col-xs-offset-0">
-          <%= contact.firstname+' '+contact.surname+' ('+contact.email+')' %>
-        </div>
-      </div>
+      <p><%= contact.firstname+' '+contact.surname+' ('+contact.email+')' %></p>
     <% end %>
   </div>
 </div>

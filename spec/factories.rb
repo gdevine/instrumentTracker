@@ -20,8 +20,7 @@ FactoryGirl.define do
     assetNumber { Faker::Company.ein }
     purchaseDate { Faker::Date.between(200.days.ago, 100.days.ago) }
     fundingSource "ARC Grant"
-    retirementDate { Faker::Date.between(30.days.ago, Date.today) }
-    supplier "A dummy supplier"
+    supplier { Faker::Company.name }
     price { Faker::Commerce.price }
     
     association :model, :factory  => :model
@@ -70,6 +69,9 @@ FactoryGirl.define do
     startdate { Faker::Date.between(70.days.ago, Date.today) }
     status_type "Facedeployment"
     ring { Faker::Number.between(1, 6) }
+    northing { Faker::Address.latitude }
+    easting { Faker::Address.longitude }
+    vertical { rand(-10.0..30.0) }
     comments "This is a dummy comment for this face deployment status"
     
     association :instrument, :factory  => :instrument

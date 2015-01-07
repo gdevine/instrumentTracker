@@ -109,7 +109,7 @@
 			    <p class="text-left">Northing</p>
 			  </div>   
 			  <div class="col-md-6">
-			    <p class="text-muted"><%= @status.northing %></p>
+			    <p class="text-muted"><%= number_with_precision(@status.northing, :precision => 2) %></p>
 			  </div>
 			</div>
 			
@@ -118,7 +118,7 @@
 			    <p class="text-left">Easting</p>
 			  </div>   
 			  <div class="col-md-6">
-			    <p class="text-muted"><%= @status.easting %></p>
+			    <p class="text-muted"><%= number_with_precision(@status.easting, :precision => 2) %></p>
 			  </div>
 			</div>
 			
@@ -127,7 +127,7 @@
 			    <p class="text-left">Vertical</p>
 			  </div>   
 			  <div class="col-md-6">
-			    <p class="text-muted"><%= @status.vertical %></p>
+			    <p class="text-muted"><%= number_with_precision(@status.vertical, :precision => 2) %></p>
 			  </div>
 			</div>
 	  <% end %>
