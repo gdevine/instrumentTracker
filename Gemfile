@@ -4,7 +4,6 @@ ruby '2.0.0'
 gem 'rails', '4.0.8'
 gem 'bootstrap-sass', '~>3.2.0'
 gem 'bcrypt-ruby', '3.1.2'
-# gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'will_paginate-bootstrap'
 gem 'sprockets', '2.11.0'
@@ -14,7 +13,7 @@ gem 'prawn-qrcode'
 gem 'roo'
 gem 'pg'
 gem 'faker'
-gem 'factory_girl_rails', '4.2.0'
+gem 'factory_girl_rails', '4.2.0', :require => false
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
