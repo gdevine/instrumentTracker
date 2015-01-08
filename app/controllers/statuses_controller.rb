@@ -10,7 +10,8 @@ class StatusesController < ApplicationController
       @statuses = status_type_class.where(instrument_id:params[:instrument_id]).paginate(page: params[:page], :per_page => 20)
       @instrument = Instrument.find(params[:instrument_id])
     else
-      @statuses = status_type_class.paginate(page: params[:page], :per_page => 20)
+      # when not bounded by a particular instrument we return a list of only 'current' statuses
+      @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id)).paginate(page: params[:page], :per_page => 20)
     end
   end
 

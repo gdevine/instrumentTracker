@@ -1,13 +1,23 @@
 <% provide(:title, @status_type_text + ' List') %>
 
 <% if @instrument %>
-  <% provide(:pageheading, @status_type_text + ' List for Instrument '+@instrument.id.to_s) %>
-<% else %>
-  <% provide(:pageheading, @status_type_text + ' List') %>
-<% end %>
 
-<div class="row">
-  <div class="col-xs-12">
-    <%= render 'statuses/statuses' %>
-  </div>
-</div>
+  <% provide(:pageheading, @status_type_text + ' List for Instrument '+@instrument.id.to_s) %>
+
+  <div class="row">
+	  <div class="col-xs-12">
+	    <%= render 'statuses/statuses' %>
+	  </div>
+	</div>
+
+<% else %>  <!-- In this case we will actually be exposing a list of instruments with the current status -->
+
+  <% provide(:pageheading, @status_type_text + ' List') %>
+
+	<div class="row">
+	  <div class="col-xs-12">
+	    <%= render 'instruments/instruments' %>
+	  </div>
+	</div>
+
+<% end %>

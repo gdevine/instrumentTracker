@@ -5,57 +5,6 @@ describe "Loan pages:" do
   subject { page }
   
   let(:user) { FactoryGirl.create(:user) }
-
-  describe "Index page for all loans" do
-    
-    describe "for signed-in users" do
-      
-      before { sign_in user }
-      before { visit loans_path }
-      
-      it { should have_content('Loan List') }
-      it { should have_title(full_title('Loan List')) }
-      it { should_not have_title('| Home') }
-      
-      describe "with no loan records in the system" do
-        it "should have an information message" do
-          expect(page).to have_content('No Records found')
-        end
-      end
-      
-      describe "with loan records in the system" do
-        before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
-          @loan = FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter:user)
-          visit loans_path
-        end
-                
-        it "should have correct table heading" do
-          expect(page).to have_selector('table tr th', text: 'Status ID')
-        end
-                   
-        it "should list each loan record" do
-          Loan.paginate(page: 1).each do |loan|
-            expect(page).to have_selector('table tr td', text: @loan.id)
-          end
-        end
-        
-      end
-
-    end
-    
-    describe "for non signed-in users" do
-      describe "should not be able to see instrument loan list" do
-        before { visit loans_path }
-        it { should_not have_content('Loan Record List') }
-        it { should have_title('Sign in') }
-      end
-    end
-    
-  end
-  
   
   describe "Index page per instrument" do
     

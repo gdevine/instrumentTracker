@@ -4,7 +4,6 @@ class StaticPagesController < ApplicationController
   
   def dashboard
     @total_instruments = Instrument.all.count
-    # @face_instruments = current_FACE_instruments.count
   end
 
   def about

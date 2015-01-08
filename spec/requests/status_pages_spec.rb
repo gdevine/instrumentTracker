@@ -5,61 +5,6 @@ describe "Status pages:" do
   subject { page }
   
   let(:user) { FactoryGirl.create(:user) }
-
-  describe "Index page for all statuses" do
-    
-    describe "for signed-in users" do
-      
-      before { sign_in user }
-      before { visit statuses_path }
-      
-      it { should have_content('Status List') }
-      it { should have_title(full_title('Status List')) }
-      it { should_not have_title('| Home') }
-      
-      describe "with no status records in the system" do
-        it "should have an information message" do
-          expect(page).to have_content('No Records found')
-          expect(page).not_to have_content('View?')
-        end
-      end
-      
-      describe "with status records in the system" do
-        before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
-          @loan = FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter:user)
-          @lost = FactoryGirl.create(:lost, instrument_id:@instrument.id, reporter:user)
-          visit statuses_path
-        end
-                
-        it "should have correct table heading" do
-          expect(page).to have_selector('table tr th', text: 'ID')
-          expect(page).to have_selector('table tr th', text: 'Instrument Serial Number')
-          expect(page).to have_selector('table tr th', text: 'View?')
-        end
-                   
-        it "should list each status record" do
-          Status.paginate(page: 1).each do |status|
-            expect(page).to have_selector('table tr td', text: status.id)
-          end
-        end
-        
-      end
-
-    end
-    
-    describe "for non signed-in users" do
-      describe "should not be able to see instrument status list" do
-        before { visit statuses_path }
-        it { should_not have_content('Instruments Status List') }
-        it { should have_title('Sign in') }
-      end
-    end
-    
-  end
-  
   
   describe "Index page for all statuses per instrument" do
     

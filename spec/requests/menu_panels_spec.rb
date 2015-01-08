@@ -171,6 +171,16 @@ describe "Menu Panel:" do
         end
       end
       
+      describe "and clicking the View Lost Instruments link" do
+        before do
+          click_link('losts_index')
+        end
+    
+        it "should open up the View current losts page" do
+          expect(page).to have_title('Lost List')
+        end
+      end
+      
       describe "and clicking the Create New link" do
         before do
           FactoryGirl.create(:model)

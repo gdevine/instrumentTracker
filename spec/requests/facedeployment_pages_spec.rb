@@ -5,57 +5,6 @@ describe "FACE Deployment pages:" do
   subject { page }
   
   let(:user) { FactoryGirl.create(:user) }
-
-  describe "Index page for all face deployments" do
-    
-    describe "for signed-in users" do
-      
-      before { sign_in user }
-      before { visit facedeployments_path }
-      
-      it { should have_content('FACE Deployment List') }
-      it { should have_title(full_title('FACE Deployment List')) }
-      it { should_not have_title('| Home') }
-      
-      describe "with no face deployment records in the system" do
-        it "should have an information message" do
-          expect(page).to have_content('No Records found')
-        end
-      end
-      
-      describe "with face deployment records in the system" do
-        before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
-          @facedeployment = FactoryGirl.create(:facedeployment, instrument_id:@instrument.id, reporter:user)
-          visit facedeployments_path
-        end
-                
-        it "should have correct table heading" do
-          expect(page).to have_selector('table tr th', text: 'Status ID')
-        end
-                   
-        it "should list each face deployment record" do
-          Facedeployment.paginate(page: 1).each do |facedeployment|
-            expect(page).to have_selector('table tr td', text: @facedeployment.id)
-          end
-        end
-        
-      end
-
-    end
-    
-    describe "for non signed-in users" do
-      describe "should not be able to see instrument face deployments list" do
-        before { visit facedeployments_path }
-        it { should_not have_content('FACE Deployment Record List') }
-        it { should have_title('Sign in') }
-      end
-    end
-    
-  end
-  
   
   describe "Index page per instrument" do
     

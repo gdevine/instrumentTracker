@@ -6,57 +6,6 @@ describe "Lost pages:" do
   
   let(:user) { FactoryGirl.create(:user) }
 
-  describe "Index page for all losts" do
-    
-    describe "for signed-in users" do
-      
-      before { sign_in user }
-      before { visit losts_path }
-      
-      it { should have_content('Lost List') }
-      it { should have_title(full_title('Lost List')) }
-      it { should_not have_title('| Home') }
-      
-      describe "with no lost records in the system" do
-        it "should have an information message" do
-          expect(page).to have_content('No Records found')
-        end
-      end
-      
-      describe "with lost records in the system" do
-        before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
-          @lost = FactoryGirl.create(:lost, instrument_id:@instrument.id, reporter:user)
-          visit losts_path
-        end
-                
-        it "should have correct table heading" do
-          expect(page).to have_selector('table tr th', text: 'Status ID')
-        end
-                   
-        it "should list each lost record" do
-          Lost.paginate(page: 1).each do |lost|
-            expect(page).to have_selector('table tr td', text: @lost.id)
-          end
-        end
-        
-      end
-
-    end
-    
-    describe "for non signed-in users" do
-      describe "should not be able to see instrument lost list" do
-        before { visit losts_path }
-        it { should_not have_content('Lost Record List') }
-        it { should have_title('Sign in') }
-      end
-    end
-    
-  end
-  
-  
   describe "Index page per instrument" do
     
     describe "for signed-in users" do

@@ -1,7 +1,7 @@
 module InstrumentsHelper
   
   def current_instruments(statustype)
-    # Will return an array of instruments that currently have a status_type equal to statustype
+    # Will return an array of instruments whose current status_type is equal to statustype
     
     current_instruments = []
     Instrument.all.each do |i| 
