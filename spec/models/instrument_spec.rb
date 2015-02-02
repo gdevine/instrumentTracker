@@ -144,6 +144,24 @@ describe Instrument do
     
   end
   
+  describe "Storage status associations" do
+    before { @inst.save }
+    
+    let!(:older_status) do
+      FactoryGirl.create(:storage, instrument:@inst, startdate: 2.days.ago)
+    end
+    
+    let!(:newer_status) do 
+      FactoryGirl.create(:storage, instrument:@inst, startdate: 1.hour.ago)
+    end
+    
+    it "should have the right storage statuses in the right order" do
+      expect(Instrument.find_by(id:@inst.id).statuses.to_a).to eq [newer_status, older_status]
+    end
+    
+  end
+  
+  
   describe "face deployment associations" do
     before { @inst.save }
     

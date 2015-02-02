@@ -38,6 +38,7 @@
 		    <li role="presentation" class="dropdown-header">Add New Status</li>
 		    <li><%= link_to "Instrument Loan", new_instrument_loan_path(instrument_id:@instrument.id) %> </li>
 		    <li><%= link_to "Instrument Lost", new_instrument_lost_path(instrument_id:@instrument.id) %> </li>
+		    <li><%= link_to "Instrument Storage", new_instrument_storage_path(instrument_id:@instrument.id) %> </li>
 		    <li><%= link_to "FACE Deployment", new_instrument_facedeployment_path(instrument_id:@instrument.id) %> </li>
 	    </ul>
 	</div>
@@ -126,10 +127,10 @@
   	
   	<div class="row topspace20">
 		  <div class="col-md-5">
-		    <p class="text-left">Type</p>
+		    <p class="text-left">Instrument Type</p>
 		  </div>   
 		  <div class="col-md-7">
-		    <p class="text-left text-muted"><%= @instrument.model.modelType %></p>
+		    <p class="text-left text-muted"><%= @instrument.model.instrument_type.name %></p>
 		  </div>
 		</div>
 		
@@ -138,7 +139,7 @@
 		    <p class="text-left">Manufacturer</p>
 		  </div>   
 		  <div class="col-md-7">
-		    <p class="text-left text-muted"><%= @instrument.model.manufacturer %></p>
+		    <p class="text-left text-muted"><%= @instrument.model.manufacturer.name %></p>
 		  </div>
 		</div>
 		
@@ -147,7 +148,7 @@
 		    <p class="text-left">Name</p>
 		  </div>   
 		  <div class="col-md-7">
-		    <p class="text-left text-muted"><%= @instrument.model.modelName %></p>
+		    <p class="text-left text-muted"><%= @instrument.model.name %></p>
 		  </div>
 		</div>
 		

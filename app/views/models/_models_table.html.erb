@@ -1,7 +1,7 @@
 <tr>
   <td><%= model.id %></td>
-  <td><%= model.modelType %> </td>
-  <td><%= model.manufacturer %> </td>
-  <td><%= model.modelName %></td>
+  <td><%= model.instrument_type.name %> </td>
+  <td><%= model.manufacturer.name %> </td>
+  <td><%= model.name %></td>
   <td><%= link_to "View", model %></td>
 </tr>

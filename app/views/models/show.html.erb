@@ -40,7 +40,7 @@
 		    <p class="text-left">Model Type</p>
 		  </div>   
 		  <div class="col-md-6">
-		    <p class="text-muted"><%= @model.modelType %></p>
+		    <p class="text-muted"><%= @model.instrument_type.name %></p>
 		  </div>
 		</div>
 		
@@ -49,7 +49,7 @@
 		    <p class="text-left">Manufacturer</p>
 		  </div>   
 		  <div class="col-md-6">
-		    <p class="text-muted"><%= @model.manufacturer %></p>
+		    <p class="text-muted"><%= @model.manufacturer.name %></p>
 		  </div>
 		</div>
 		
@@ -58,7 +58,7 @@
 		    <p class="text-left">Model Name</p>
 		  </div>   
 		  <div class="col-md-6">
-		    <p class="text-muted"><%= @model.modelName %></p>
+		    <p class="text-muted"><%= @model.name %></p>
 		  </div>
 		</div>
 
@@ -69,7 +69,7 @@
 
 <div class="row">
   <div class="col-xs-12 rowline">
-    <h4>Instruments of this model type at HIE</h4>
+    <h4>Instruments of this type at HIE</h4>
     <p class="topspace20"></p>
     <%= render 'instruments/instruments' %>
   </div>

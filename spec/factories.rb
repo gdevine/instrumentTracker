@@ -1,18 +1,35 @@
 FactoryGirl.define do
-  
+    
   factory :user do
     firstname { Faker::Name.first_name }
     surname { Faker::Name.last_name }
     email { Faker::Internet.free_email }
     password "foobar100"
-    password_confirmation "foobar100"  
+    password_confirmation "foobar100"   
     approved true
+    
+    factory :unapproved_user do
+      approved false
+    end
+      
   end
   
   factory :model do
-    sequence(:modelType) { |n| "mtype_#{n}" }
-    sequence(:manufacturer) { |n| "man_#{n}" }
-    sequence(:modelName) { |n| "mname_#{n}" }
+    name { Faker::App.name }
+    details "Some additional info about this "
+    
+    association :instrument_type, :factory  => :instrument_type
+    association :manufacturer, :factory  => :manufacturer
+  end
+
+  factory :manufacturer do
+    sequence(:name) {|n| Faker::Company.name + " (#{n})"}
+    details "Some additional info about this "
+  end
+  
+  factory :instrument_type do
+    sequence(:name) {|n| ["Dendrometer", "Temperature Sensor", "Leaf Trap", "Lux Meter"].sample + " (#{n})"}
+    details "Some additional info about this "
   end
     
   factory :instrument do
@@ -73,6 +90,16 @@ FactoryGirl.define do
     easting { Faker::Address.longitude }
     vertical { rand(-10.0..30.0) }
     comments "This is a dummy comment for this face deployment status"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
+  end
+  
+  factory :storage do 
+    startdate { Faker::Date.between(70.days.ago, Date.today) }
+    status_type "Storage"
+    storage_location { Faker::Address.building_number + ' ' + Faker::Address.street_address }
+    comments "This is a dummy comment for this storage status"
     
     association :instrument, :factory  => :instrument
     association :reporter, :factory  => :user

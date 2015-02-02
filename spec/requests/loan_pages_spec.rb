@@ -30,9 +30,6 @@ describe "Loan pages:" do
       
       describe "with loan records in the system" do
         before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
           @loan = FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter:user)
           visit instrument_loans_path(@instrument)
         end

@@ -243,8 +243,6 @@ describe "Service pages:" do
     
     describe "for signed-in users who are an owner" do
       
-      let!(:mymod) { FactoryGirl.create(:model) } 
-      
       before do 
         sign_in(user) 
         visit edit_instrument_service_path(id:@service.id, instrument_id:@instrument.id)

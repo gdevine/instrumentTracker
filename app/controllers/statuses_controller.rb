@@ -101,6 +101,8 @@ class StatusesController < ApplicationController
         'Lost'
       when 'Facedeployment'
         'FACE Deployment'
+      when 'Storage'
+        'In Storage'
       else
         'Status'
       end
@@ -111,7 +113,7 @@ class StatusesController < ApplicationController
     end
     
     def status_params
-      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id, :status_type, :ring, :northing, :easting, :vertical)
+      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id, :status_type, :ring, :northing, :easting, :vertical, :storage_location)
     end
     
     def correct_user

@@ -37,6 +37,8 @@
 		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_lost_path(id:@status.id) %> </li>
 		  <% elsif @status.status_type == 'Facedeployment'%>
 		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_facedeployment_path(id:@status.id) %> </li>
+		  <% elsif @status.status_type == 'Storage'%>
+		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_storage_path(id:@status.id) %> </li>
 		  <% end %>
 		  <li><%= link_to 'Delete '+ @status.status_type_text + ' Record', @status, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
 	  </ul>
@@ -47,7 +49,7 @@
 
 <div class="row">
 	<div class="col-sm-12 well well-sm">	
-		<p class='center'>This is a <%= @status.status_type.capitalize %> Record for the <span style="font-weight:bold"><%= @status.instrument.model.manufacturer %> <%= @status.instrument.model.modelName %></span> Instrument with Serial Number <span style="font-weight:bold"><%= @status.instrument.serialNumber %></span></p>	
+		<p class='center'>This is a <%= @status.status_type.capitalize %> Record for the <span style="font-weight:bold"><%= @status.instrument.model.manufacturer.name %> <%= @status.instrument.model.name %></span> Instrument with Serial Number <span style="font-weight:bold"><%= @status.instrument.serialNumber %></span></p>	
 		<p class='center text-muted'><%= link_to "View Instrument", @status.instrument %></p>		
 	</div>
 </div>
@@ -90,6 +92,17 @@
 			  </div>   
 			  <div class="col-md-6">
 			    <p class="text-muted"><%= @status.loaned_to %></p>
+			  </div>
+			</div>
+	  <% end %>
+	  
+	  <% if @status.status_type == 'Storage' %> 
+			<div class="row">
+			  <div class="col-md-offset-3 col-md-3">
+			    <p class="text-left">Storage Location</p>
+			  </div>   
+			  <div class="col-md-6">
+			    <p class="text-muted"><%= @status.storage_location %></p>
 			  </div>
 			</div>
 	  <% end %>

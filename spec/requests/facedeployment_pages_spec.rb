@@ -30,9 +30,6 @@ describe "FACE Deployment pages:" do
       
       describe "with face deployment records in the system" do
         before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
           @facedeployment = FactoryGirl.create(:facedeployment, instrument_id:@instrument.id, reporter:user)
           visit instrument_facedeployments_path(@instrument)
         end

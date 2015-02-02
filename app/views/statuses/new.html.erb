@@ -72,6 +72,15 @@
 	  </div>
   <% end %>
   
+  <% if @status.status_type == 'Storage' %> 
+	  <div class="form-group">
+	    <%= f.label :storage_location, 'Storage Location', :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8"> 
+	      <%= f.text_area :storage_location, :class => "form-control" %>
+	    </div>
+	  </div>
+	<% end %>
+  
   <div class="form-group">
     <%= f.label :comments, "Comments", :class => "col-lg-2 control-label" %>
     <div class="col-lg-8">

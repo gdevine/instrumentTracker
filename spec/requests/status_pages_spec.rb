@@ -31,9 +31,6 @@ describe "Status pages:" do
       
       describe "with status records in the system" do
         before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
           @loan = FactoryGirl.create(:loan, instrument_id:@instrument.id, reporter:user)
           visit instrument_statuses_path(@instrument)
         end

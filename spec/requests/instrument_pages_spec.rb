@@ -156,6 +156,7 @@ describe "instrument pages:" do
       it { should have_link('Add Service Record') }
       it { should have_link('Instrument Loan') }
       it { should have_link('Instrument Lost') }
+      it { should have_link('Instrument Storage') }
       it { should have_link('FACE Deployment') }
       
       it { should have_content('None assigned') }
@@ -218,6 +219,15 @@ describe "instrument pages:" do
         let!(:page_heading) {"New FACE Deployment Record for Instrument " + @instrument.id.to_s}
         
         describe 'should have a page heading for the correct service record' do
+          it { should have_content(page_heading) }
+        end
+      end 
+ 
+      describe "when clicking the storage button" do
+        before { click_link "Instrument Storage" }
+        let!(:page_heading) {"New In Storage Record for Instrument " + @instrument.id.to_s}
+        
+        describe 'should have a page heading for the correct status record' do
           it { should have_content(page_heading) }
         end
       end 
@@ -360,8 +370,6 @@ describe "instrument pages:" do
     end 
     
     describe "for signed-in users who are an owner" do
-      
-      let!(:mymod) { FactoryGirl.create(:model) } 
       
       before do 
         sign_in(user) 

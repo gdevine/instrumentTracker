@@ -30,9 +30,6 @@ describe "Lost pages:" do
       
       describe "with lost records in the system" do
         before do    
-          @instrument = FactoryGirl.create(:instrument)
-          @instrument.users << user
-          @instrument.save
           @lost = FactoryGirl.create(:lost, instrument_id:@instrument.id, reporter:user)
           visit instrument_losts_path(@instrument)
         end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150104221402) do
+ActiveRecord::Schema.define(version: 20150202035017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,13 @@ ActiveRecord::Schema.define(version: 20150104221402) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "instrument_types", force: true do |t|
+    t.string   "name"
+    t.text     "details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "instrument_users", force: true do |t|
     t.integer  "instrument_id"
     t.integer  "user_id"
@@ -72,12 +79,20 @@ ActiveRecord::Schema.define(version: 20150104221402) do
 
   add_index "instruments", ["model_id", "created_at"], name: "index_instruments_on_model_id_and_created_at", using: :btree
 
-  create_table "models", force: true do |t|
-    t.string   "modelType"
-    t.string   "manufacturer"
-    t.string   "modelName"
+  create_table "manufacturers", force: true do |t|
+    t.string   "name"
+    t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "models", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "manufacturer_id"
+    t.string   "name"
+    t.text     "details"
+    t.integer  "instrument_type_id"
   end
 
   create_table "services", force: true do |t|
@@ -109,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150104221402) do
     t.float    "northing"
     t.float    "easting"
     t.float    "vertical"
+    t.text     "storage_location"
   end
 
   add_index "statuses", ["instrument_id", "created_at"], name: "index_statuses_on_instrument_id_and_created_at", using: :btree

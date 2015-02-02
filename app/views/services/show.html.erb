@@ -41,7 +41,7 @@
 
 <div class="row">
 	<div class="col-sm-12 well well-sm">	
-		<p class='center'>This is a Service Record for the <span style="font-weight:bold"><%= @service.instrument.model.manufacturer %> <%= @service.instrument.model.modelName %></span> Instrument with Serial Number <span style="font-weight:bold"><%= @service.instrument.serialNumber %></span></p>	
+		<p class='center'>This is a Service Record for the <span style="font-weight:bold"><%= @service.instrument.model.manufacturer.name %> <%= @service.instrument.model.name %></span> Instrument with Serial Number <span style="font-weight:bold"><%= @service.instrument.serialNumber %></span></p>	
 		<p class='center text-muted'><%= link_to "View Instrument", @service.instrument %></p>		
 	</div>
 </div>

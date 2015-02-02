@@ -11,23 +11,39 @@ require Rails.root.join('spec/factories.rb')
 
 
 # Users
+# Create a user for developer to work with
+User.create(firstname:'Gerard', surname:'Devine', email:'g.devine@uws.edu.au', password:'qwertyui', password_confirmation:'qwertyui', approved:true)
+# Create one unapproved user
+FactoryGirl.create :unapproved_user
+# Create some approved users
 5.times do
   FactoryGirl.create :user
 end
 
 
-# Models
-model_list = [
-  [ "Temperature Probe", "Sony", "VF432" ],
-  [ "Data Logger", "Campbell", "CR1300" ],
-  [ "Dendrometer", "Honeywell", "D54D100" ],
-  [ "Lux Meter", "Toshiba", "90X" ],
-  [ "NOx Monitor", "Campbell", "64D1000"]
-]
+# Manufacturers
+manufacturer_list = ["Sony", "Campbell", "Honeywell", "Toshiba", "Siemens"]
 
-model_list.each do |modelType, manufacturer, modelName|
-  model = Model.create_with(:modelType => modelType).find_or_create_by(:manufacturer => manufacturer, :modelName => modelName  )
+# Instrument Types
+instrument_type_list = ["Temperature Probe", "Data Logger", "Dendrometer", "Lux Meter", "NOx Monitor"]
+
+# Models
+model_list = ["VF432", "CR1300", "D54D100", "90X", "64D1000"]
+
+
+manufacturer_list.each do |manufacturer|
+  man = Manufacturer.create(name: manufacturer, details:'Some extra info about this Manufacturer')
 end
+
+instrument_type_list.each do |it|
+  instrument_type = InstrumentType.create(:name => it, details:'Some extra info about this Instrument Type')
+end
+
+model_list.each_with_index do |it, index|
+  model = Model.create(:name => it, details:'Some extra info about this Model', instrument_type_id:index+1, manufacturer_id:index+1)
+end
+
+# Create some instrument type - manufacturer - models
 
 
 # Instruments
