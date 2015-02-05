@@ -3,7 +3,6 @@
 <% provide(:pageheading, 'New '+ @status.status_type_text + ' Record for Instrument ' + @instrument.id.to_s) %>
 
 
-<%# form_for @status, :html => {:class => "form-horizontal"} do |f| %>
 <%= form_for [:instrument, @status], :html => {:class => "form-horizontal"} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
@@ -74,11 +73,11 @@
   
   <% if @status.status_type == 'Storage' %> 
 	  <div class="form-group">
-	    <%= f.label :storage_location, 'Storage Location', :class => "col-lg-2 control-label" %>
-	    <div class="col-lg-8"> 
-	      <%= f.text_area :storage_location, :class => "form-control" %>
-	    </div>
-	  </div>
+		  <%= f.label :storage_location_id, 'Storage Location', :class => "col-lg-2 control-label" %>
+		  <div class="col-lg-8">
+		    <%= collection_select(:storage, :storage_location_id, StorageLocation.all, :id, :code, {include_blank: 'None selected'}, {:class=>"form-control", :id=>'storage_locations'} ) %>
+		  </div>
+		</div>
 	<% end %>
   
   <div class="form-group">

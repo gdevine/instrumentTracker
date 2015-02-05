@@ -1,6 +1,7 @@
 class Status < ActiveRecord::Base
   belongs_to :instrument, :class_name => 'Instrument', :foreign_key => 'instrument_id'
   belongs_to :reporter, :class_name => 'User', :foreign_key => 'reporter_id'
+  belongs_to :storage_location, :class_name => 'StorageLocation', :foreign_key => 'storage_location_id'
   
   self.inheritance_column = :status_type
   # We will need a way to know which statuses

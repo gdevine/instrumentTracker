@@ -14,7 +14,6 @@ class Instrument < ActiveRecord::Base
   
   # validate :require_at_least_one_user
   validate :limit_to_three_users
-  validate :only_one_current
  
  
   def current_status
@@ -39,12 +38,5 @@ class Instrument < ActiveRecord::Base
         self.users.count > 3 
     end
     
-    def only_one_current
-      if !self.statuses.empty?
-        currents = self.current_status
-        errors.add(:base, "An instrument can not have more than one status marked as current") if
-          currents.count > 1 
-      end
-    end
     
 end

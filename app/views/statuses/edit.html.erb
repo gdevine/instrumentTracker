@@ -1,13 +1,12 @@
 <% provide(:title, 'Edit '+ @status.status_type_text + ' Record') %>
 
-<% provide(:pageheading, 'Edit '+ @status.status_type_text + ' Record ' + @status.id.to_s + ' for Instrument '+ @instrument.id.to_s) %>
-
+<% provide(:pageheading, 'Edit '+ @status.status_type_text + ' Record ' + @status.id.to_s + ' for Instrument '+ @status.instrument.id.to_s) %>
 
 <%= form_for @status, :html => {:class => "form-horizontal"} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
   <!-- Include hidden instrument element for attaching to correct instrument-->
-  <%= f.hidden_field :instrument_id, :value => @instrument.id %>
+  <%= f.hidden_field :status_type, :value => @status_type %>
    
   
   <div class="form-group">
@@ -16,6 +15,15 @@
       <%= f.date_field :startdate, :class => "form-control" %>
     </div>
   </div>
+  
+  <% if @status.status_type == 'Storage' %> 
+	  <div class="form-group">
+		  <%= f.label :storage_location_id, 'Storage Location', :class => "col-lg-2 control-label" %>
+		  <div class="col-lg-8">
+		    <%= collection_select(:storage, :storage_location_id, StorageLocation.all, :id, :code, {include_blank: 'None selected', :selected => @status.storage_location_id.to_i}, {:class=>"form-control", :id=>'storage_locations'} ) %>
+		  </div>
+		</div>
+	<% end %>
   
   <% if @status.status_type == 'Loan' %> 
 	  <div class="form-group">
@@ -39,16 +47,7 @@
 	    </div>
 	  </div>
   <% end %>
-    
-  <% if @status.status_type == 'Storage' %> 
-	  <div class="form-group">
-	    <%= f.label :storage_location, 'Storage Location', :class => "col-lg-2 control-label" %>
-	    <div class="col-lg-8"> 
-	      <%= f.text_area :storage_location, :class => "form-control" %>
-	    </div>
-	  </div>
-	<% end %>
-  
+	
   <% if @status.status_type == 'Facedeployment' %> 
 	  <div class="form-group">
 	    <%= f.label :ring, 'Ring', :class => "col-lg-2 control-label" %>
@@ -93,12 +92,3 @@
   </div>
   
 <% end %>
-
-<!-- <script type="text/javascript">
-$('#projects, #facilities').multiselect({
-    buttonClass : "form-control",
-    buttonWidth: "50%",
-    maxHeight: 400,
-    enableFiltering: true
-});
-</script> -->

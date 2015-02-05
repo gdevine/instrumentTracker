@@ -5,6 +5,7 @@ describe "Storage pages:" do
   subject { page }
   
   let(:user) { FactoryGirl.create(:user) }
+  let!(:storage_loc) { FactoryGirl.create(:storage_location) } 
   
   describe "Index page per instrument" do
     
@@ -67,7 +68,6 @@ describe "Storage pages:" do
   
   
   describe "New page" do
-              
     before do 
       @instrument = FactoryGirl.create(:instrument)
       @instrument.users << user
@@ -107,7 +107,7 @@ describe "Storage pages:" do
         
         before do
           fill_in 'storage_startdate', with: Date.new(2012, 12, 3)
-          fill_in 'storage_storage_location', with: 'Room 23'
+          find('#storage_locations').find(:xpath, 'option[2]').select_option
         end
         
         it "should create a status" do
@@ -234,7 +234,6 @@ describe "Storage pages:" do
   
   
   describe "edit page" do
-    
     before do 
       @instrument = FactoryGirl.create(:instrument)
       @instrument.users << user
@@ -256,7 +255,7 @@ describe "Storage pages:" do
       describe "with invalid storage location information" do
         
           before do
-            fill_in 'storage_storage_location', with: ''
+            find('#storage_locations').find(:xpath, 'option[normalize-space(.)="None selected"]').select_option
             click_button "Update"
           end
           
@@ -269,7 +268,7 @@ describe "Storage pages:" do
       describe "with valid information" do
   
         before do
-          fill_in 'storage_storage_location'  , with: 'Valid location'
+          find('#storage_locations').find(:xpath, 'option[2]').select_option
         end
         
         it "should update, not add a status" do

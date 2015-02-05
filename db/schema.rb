@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202035017) do
+ActiveRecord::Schema.define(version: 20150202225954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,10 +124,20 @@ ActiveRecord::Schema.define(version: 20150202035017) do
     t.float    "northing"
     t.float    "easting"
     t.float    "vertical"
-    t.text     "storage_location"
+    t.integer  "storage_location_id"
   end
 
   add_index "statuses", ["instrument_id", "created_at"], name: "index_statuses_on_instrument_id_and_created_at", using: :btree
+
+  create_table "storage_locations", force: true do |t|
+    t.string   "code"
+    t.string   "room"
+    t.string   "building"
+    t.text     "address"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

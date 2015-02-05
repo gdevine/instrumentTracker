@@ -95,14 +95,22 @@ FactoryGirl.define do
     association :reporter, :factory  => :user
   end
   
+  factory :storage_location do 
+    code { Faker::Internet.domain_word }
+    room { Faker::Address.building_number }
+    building { Faker::Lorem.word }
+    address { Faker::Address.street_address }
+    comments "This is a dummy comment for this storage location"
+  end
+  
   factory :storage do 
     startdate { Faker::Date.between(70.days.ago, Date.today) }
     status_type "Storage"
-    storage_location { Faker::Address.building_number + ' ' + Faker::Address.street_address }
     comments "This is a dummy comment for this storage status"
     
     association :instrument, :factory  => :instrument
     association :reporter, :factory  => :user
+    association :storage_location, :factory  => :storage_location
   end
     
 end
