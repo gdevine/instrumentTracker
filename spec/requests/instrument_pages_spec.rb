@@ -101,7 +101,6 @@ describe "instrument pages:" do
           fill_in 'instrument_supplier'  , with: 'Dummy Supplier Inc'
           fill_in 'instrument_serialNumber', with: 'fsdfjhkds'
           fill_in 'instrument_purchaseDate', with: Date.new(2012, 12, 3)
-          fill_in 'instrument_retirementDate', with: Date.new(2013, 10, 7)
           fill_in 'instrument_price', with: 2430.00
         end
         

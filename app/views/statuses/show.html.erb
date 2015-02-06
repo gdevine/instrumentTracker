@@ -39,6 +39,8 @@
 		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_facedeployment_path(id:@status.id) %> </li>
 		  <% elsif @status.status_type == 'Storage'%>
 		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_storage_path(id:@status.id) %> </li>
+		  <% elsif @status.status_type == 'Retirement'%>
+		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_storage_path(id:@status.id) %> </li>
 		  <% end %>
 		  <li><%= link_to 'Delete '+ @status.status_type_text + ' Record', @status, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
 	  </ul>
@@ -78,7 +80,11 @@
 		
 		<div class="row">
 		  <div class="col-md-offset-3 col-md-3">
-		    <p class="text-left">Start Date</p>
+		    <% if @status.status_type == 'Retirement' %> 
+		      <p class="text-left">Retired on</p>
+		    <% elsif %>
+		      <p class="text-left">Start Date</p>		
+		    <% end %>    
 		  </div>   
 		  <div class="col-md-6">
 		    <p class="text-muted"><%= @status.startdate.strftime('%a %b %d %Y') %></p>
@@ -92,17 +98,6 @@
 			  </div>   
 			  <div class="col-md-6">
 			    <p class="text-muted"><%= @status.loaned_to %></p>
-			  </div>
-			</div>
-	  <% end %>
-	  
-	  <% if @status.status_type == 'Storage' %> 
-			<div class="row">
-			  <div class="col-md-offset-3 col-md-3">
-			    <p class="text-left">Storage Location</p>
-			  </div>   
-			  <div class="col-md-6">
-			    <p class="text-muted"><%= @status.storage_location.code %></p>
 			  </div>
 			</div>
 	  <% end %>
@@ -171,6 +166,45 @@
 		    <p class="text-muted"><%= @status.created_at.to_date.strftime('%a %b %d %Y') %></p>
 		  </div>
 		</div>
+		
+			  
+	  <% if @status.status_type == 'Storage' %> 
+	  <div class="row">
+	    <div class="col-md-offset-3 col-md-6 well well-sm well-blue">	
+			  <h4 class="center">Storage Location</h4>
+				<div class="row topspace20">
+				  <div class="col-md-6">
+				    <p class="text-left">Storage Location code</p>
+				  </div>   
+				  <div class="col-md-6">
+				    <p class="text-muted"><%= @status.storage_location.code %></p>
+				  </div>
+				  
+				  <div class="col-md-6">
+				    <p class="text-left">Room</p>
+				  </div>   
+				  <div class="col-md-6">
+				    <p class="text-muted"><%= @status.storage_location.room %></p>
+				  </div>
+				  
+				  <div class="col-md-6">
+				    <p class="text-left">Building</p>
+				  </div>   
+				  <div class="col-md-6">
+				    <p class="text-muted"><%= @status.storage_location.building %></p>
+				  </div>
+				  
+				  <div class="col-md-6">
+				    <p class="text-left">Address</p>
+				  </div>   
+				  <div class="col-md-6">
+				    <p class="text-muted"><%= @status.storage_location.address %></p>
+				  </div>
+				  
+				</div>
+		  </div>
+		</div>
+	  <% end %>
 		
   </div>
   

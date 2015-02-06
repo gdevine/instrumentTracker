@@ -40,6 +40,8 @@
 		    <li><%= link_to "Instrument Lost", new_instrument_lost_path(instrument_id:@instrument.id) %> </li>
 		    <li><%= link_to "Instrument Storage", new_instrument_storage_path(instrument_id:@instrument.id) %> </li>
 		    <li><%= link_to "FACE Deployment", new_instrument_facedeployment_path(instrument_id:@instrument.id) %> </li>
+			  <li role="presentation" class="divider"></li>
+		    <li><%= link_to "Retire this instrument", new_instrument_retirement_path(instrument_id:@instrument.id) %> </li>
 	    </ul>
 	</div>
   </div>
@@ -85,14 +87,17 @@
 		  </div>
 		</div>
 		
-		<div class="row">
-		  <div class="col-md-offset-3 col-md-3">
-		    <p class="text-left">Price</p>
-		  </div>   
-		  <div class="col-md-6">
-		    <p class="text-muted"><%= @instrument.price %></p>
-		  </div>
-		</div>
+		
+    <% if user_signed_in? %> 
+			<div class="row">
+			  <div class="col-md-offset-3 col-md-3">
+			    <p class="text-left">Price</p>
+			  </div>   
+			  <div class="col-md-6">
+			    <p class="text-muted"><%= @instrument.price %></p>
+			  </div>
+			</div>
+    <% end %>
 		
 		<div class="row">
 		  <div class="col-md-offset-3 col-md-3">
@@ -109,15 +114,6 @@
 		  </div>   
 		  <div class="col-md-6">
 		    <p class="text-muted"><%= @instrument.fundingSource %></p>
-		  </div>
-		</div>
-		
-		<div class="row">
-		  <div class="col-md-offset-3 col-md-3">
-		    <p class="text-left">Retirement Date</p>
-		  </div>  
-		  <div class="col-md-6">
-		    <p class="text-muted"><%= @instrument.retirementDate %></p>
 		  </div>
 		</div>
   </div>

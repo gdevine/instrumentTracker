@@ -52,12 +52,6 @@ end
   instrument.users << User.find(rand(1..5))
 end
 
-# Retired Instruments
-5.times do
-  instrument = FactoryGirl.create(:instrument, model_id: rand(1..5), retirementDate: Faker::Date.between(30.days.ago, Date.today))
-  instrument.users << User.find(rand(1..5))
-end
-
 
 # Services
 100.times do
@@ -77,4 +71,14 @@ end
 # FACE Deployments
 25.times do
   facedeployment = FactoryGirl.create(:facedeployment, instrument_id:rand(1..50), reporter_id:rand(1..5))    
+end
+
+# Retired Instruments
+5.times do
+  storage = FactoryGirl.create(:storage, instrument_id:rand(1..50), reporter_id:rand(1..5))    
+end
+
+# Retired Instruments
+3.times do
+  retired = FactoryGirl.create(:retirement, instrument_id:rand(1..50), reporter_id:rand(1..5))    
 end

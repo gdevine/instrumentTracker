@@ -14,4 +14,14 @@ module InstrumentsHelper
     return current_instruments   
   end
   
+  def unassigned_instruments
+    unassigned = []
+    Instrument.all.each do |i| 
+      if i.statuses.empty?
+        unassigned << i
+      end
+    end
+    return unassigned   
+  end
+  
 end

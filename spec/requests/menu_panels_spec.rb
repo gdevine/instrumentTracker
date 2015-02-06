@@ -201,6 +201,16 @@ describe "Menu Panel:" do
         end
       end
       
+      describe "and clicking the View Retired link" do
+        before do
+          click_link('retirements_index')
+        end
+    
+        it "should open up the View current retirements page" do
+          expect(page).to have_title('Retired List')
+        end
+      end
+      
       describe "and clicking the Create New link" do
         before do
           FactoryGirl.create(:model)

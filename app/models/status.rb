@@ -7,7 +7,7 @@ class Status < ActiveRecord::Base
   # We will need a way to know which statuses
   # will subclass the Status model
   def self.status_types
-    ['Loan', 'Lost', 'Facedeployment', 'Storage']
+    ['Loan', 'Lost', 'Facedeployment', 'Storage', 'Retirement']
   end
   
   default_scope -> { order('startdate DESC') }
@@ -27,6 +27,8 @@ class Status < ActiveRecord::Base
       'Loan'
     when 'Lost'
       'Lost'
+    when 'Retirement'
+      'Retired'
     when 'Facedeployment'
       'FACE Deployment'
     when 'Storage'

@@ -9,18 +9,39 @@
       <h2 class="center"><%= @total_instruments %></h2>
     </div>
    
-    <div class="col-md-12 well well-semigreen">
-      <h4 class="center">Instruments currently deployed at FACE</h4> 
-      <h2 class="center"><%= current_instruments('Facedeployment').count %></h2>
+    <div class="col-md-12">
+	    <div class="col-md-5 col-md-offset-1 well well-semigreen">
+	      <h4 class="center">Instruments currently deployed at FACE</h4> 
+	      <h2 class="center"><%= current_instruments('Facedeployment').count %></h2>
+	    </div>    
+	    <div class="col-md-5 well well-blue">
+        <h4 class="center">Instruments currently on Loan</h4> 
+        <h2 class="center"><%= current_instruments('Loan').count %></h2>
+      </div>
     </div>
-    <div class="col-md-12 well well-blue">
-      <h4 class="center">Instruments currently on Loan</h4> 
-      <h2 class="center"><%= current_instruments('Loan').count %></h2>
+    
+    <div class="col-md-12">
+	    <div class="col-md-5 col-md-offset-1 well well-blue">
+	      <h4 class="center">Instruments currently registered as Lost</h4> 
+	      <h2 class="center"><%= current_instruments('Lost').count %></h2>
+	    </div>
+	    <div class="col-md-5 well well-semigreen">
+	      <h4 class="center">Instruments currently in Storage</h4> 
+	      <h2 class="center"><%= current_instruments('Storage').count %></h2>
+	    </div>
     </div>
-    <div class="col-md-12 well well-semigreen">
-      <h4 class="center">Instruments currently registered as Lost</h4> 
-      <h2 class="center"><%= current_instruments('Lost').count %></h2>
+    
+    <div class="col-md-12">
+	    <div class="col-md-5 col-md-offset-1 well well-semigreen">
+	      <h4 class="center">Instruments retired</h4> 
+	      <h2 class="center"><%= current_instruments('Retirement').count %></h2>
+	    </div>   
+	    <div class="col-md-5 well well-blue">
+	      <h4 class="center">Instruments awaiting to be assigned</h4> 
+	      <h2 class="center"><%= unassigned_instruments.count %></h2>
+	    </div>   
     </div>
+    
   </div>
 </div>
 

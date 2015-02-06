@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe Status do
+describe Retirement do
   let(:user1) {FactoryGirl.create(:user) }
   
   before do
     @instrument = FactoryGirl.create(:instrument)
     @instrument.users << user1
     @instrument.save
-    @status = FactoryGirl.build(:status, instrument_id:@instrument.id, reporter_id:user1.id)
+    @retirement = FactoryGirl.build(:retirement, instrument_id:@instrument.id, reporter_id:user1.id)
   end
   
-  subject { @status }
+  subject { @retirement }
   
   it { should respond_to(:id) }
   it { should respond_to(:startdate) }
@@ -20,41 +20,39 @@ describe Status do
   it { should respond_to(:reporter_id) }
   it { should respond_to(:reporter) }
   it { should respond_to(:status_type) }
-  it { should respond_to(:storage_location_id) }
-  it { should respond_to(:ring) }
  
   it { should be_valid }
   
-  describe "when startdate is not present" do
-    before { @status.startdate = nil }
+  
+  describe "when status_type is not present" do
+    before { @retirement.status_type = nil }
     it { should_not be_valid }
   end
   
-  describe "when statustype is not present" do
-    before { @status.status_type = nil }
+  describe "when status_type is not 'Loan'" do
+    before { @retirement.status_type = 'nonstatus' }
     it { should_not be_valid }
   end
   
   describe "when instrument is not present" do
     before do 
-      @status.instrument = nil
+      @retirement.instrument = nil
     end
     it { should_not be_valid }
   end
   
   describe "when instrument does not exist" do
-    before { @status.instrument_id = 10000 }
+    before { @retirement.instrument_id = 10000 }
     it { should_not be_valid }
   end
 
   describe "when reporter is not present" do
-    before { @status.reporter = nil }
+    before { @retirement.reporter = nil }
     it { should_not be_valid }
   end
   
   describe "when reporter does not exist" do
-    before { @status.reporter_id = 10000 }
+    before { @retirement.reporter_id = 10000 }
     it { should_not be_valid }
   end
-  
 end

@@ -64,7 +64,7 @@ FactoryGirl.define do
   end
   
   factory :loan do 
-    startdate { Faker::Date.between(30.days.ago, Date.today) }
+    startdate { Faker::Date.between(100.days.ago, 10.days.ago) }
     status_type "Loan"
     loaned_to { Faker::Name.name }
     comments "This is a dummy comment for this loan"
@@ -74,7 +74,7 @@ FactoryGirl.define do
   end
   
   factory :lost do 
-    startdate { Faker::Date.between(60.days.ago, Date.today) }
+    startdate { Faker::Date.between(100.days.ago, 10.days.ago) }
     status_type "Lost"
     comments "This is a dummy comment for this lost status"
     
@@ -82,8 +82,17 @@ FactoryGirl.define do
     association :reporter, :factory  => :user
   end
   
+  factory :retirement do 
+    startdate { Faker::Date.between(10.days.ago, Date.today) }
+    status_type "Retirement"
+    comments "This is a dummy comment for this retirement status"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
+  end
+  
   factory :facedeployment do 
-    startdate { Faker::Date.between(70.days.ago, Date.today) }
+    startdate { Faker::Date.between(100.days.ago, 100.days.ago) }
     status_type "Facedeployment"
     ring { Faker::Number.between(1, 6) }
     northing { Faker::Address.latitude }
@@ -104,7 +113,7 @@ FactoryGirl.define do
   end
   
   factory :storage do 
-    startdate { Faker::Date.between(70.days.ago, Date.today) }
+    startdate { Faker::Date.between(100.days.ago, 10.days.ago) }
     status_type "Storage"
     comments "This is a dummy comment for this storage status"
     

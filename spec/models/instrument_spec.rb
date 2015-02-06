@@ -13,7 +13,6 @@ describe Instrument do
   it { should respond_to(:serialNumber) }
   it { should respond_to(:assetNumber) }
   it { should respond_to(:purchaseDate) }
-  it { should respond_to(:retirementDate) }
   it { should respond_to(:fundingSource) }
   it { should respond_to(:supplier) }
   it { should respond_to(:price) }

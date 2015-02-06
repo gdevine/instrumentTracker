@@ -37,7 +37,11 @@ class StatusesController < ApplicationController
     @status.status_type = @status_type
     
     if @status.save
-      flash[:success] = @status.status_type_text + " Record Created!"
+      if @status.status_type == 'Retirement'
+        flash[:success] = "Instrument has been retired!"
+      else  
+        flash[:success] = @status.status_type_text + " Record Created!"
+      end
       @status = Status.find(@status.id)
       redirect_to @status
     else
@@ -90,6 +94,8 @@ class StatusesController < ApplicationController
         'FACE Deployment'
       when 'Storage'
         'In Storage'
+      when 'Retirement'
+        'Retired'
       else
         'Status'
       end

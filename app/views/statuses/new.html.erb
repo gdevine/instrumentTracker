@@ -1,7 +1,12 @@
-<% provide(:title, 'New '+ @status.status_type_text + ' Record') %>
 
-<% provide(:pageheading, 'New '+ @status.status_type_text + ' Record for Instrument ' + @instrument.id.to_s) %>
 
+<% if @status.status_type == 'Retirement' %> 
+  <% provide(:title, 'Instrument Retirement') %>
+  <% provide(:pageheading, 'Retire Instrument '+ @instrument.id.to_s) %>
+<% else %>
+  <% provide(:title, 'New '+@status.status_type_text+' Record') %>
+  <% provide(:pageheading, 'New '+ @status.status_type_text + ' Record for Instrument ' + @instrument.id.to_s) %>
+<% end %>
 
 <%= form_for [:instrument, @status], :html => {:class => "form-horizontal"} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
@@ -12,7 +17,11 @@
    
   
   <div class="form-group">
-    <%= f.label :startdate, 'Start Date', :class => "col-lg-2 control-label" %>
+  	<% if @status.status_type == 'Retirement' %> 
+      <%= f.label :startdate, 'Start Date of Retirement', :class => "col-lg-2 control-label" %>
+    <% else %>  
+      <%= f.label :startdate, 'Start Date', :class => "col-lg-2 control-label" %>
+    <% end %>
     <div class="col-lg-8"> 
       <%= f.date_field :startdate, :class => "form-control" %>
     </div>
