@@ -1,5 +1,19 @@
 require 'spec_helper'
 
+class Counter
+  class << self
+    def increment
+      @count ||= 0
+      @count += 1
+    end
+    
+    def count
+      @count ||= 0
+    end
+  end
+end
+
+
 describe "instrument pages:" do
 
   subject { page }
@@ -68,6 +82,7 @@ describe "instrument pages:" do
     describe "for signed-in users with models in the system" do
       
       let!(:mymod) { FactoryGirl.create(:model) } # Needed to make sure something appears in the dropdown
+      let!(:user2) { FactoryGirl.create(:user) }  # An additional user
       
       before do 
         sign_in user
@@ -77,24 +92,19 @@ describe "instrument pages:" do
       it { should have_content('New Instrument') }
       it { should have_title(full_title('New Instrument')) }
       it { should_not have_title('| Home') }
+      it { should have_content('Additional Owners') }
+      #only user 2 should be showing in the dropdown menu (not the creating user)
+      it { should have_content(user2.firstname+' '+user2.surname) }
+      it { should_not have_content(user.firstname+' '+user.surname) }
       
-      describe "with invalid information" do
-        
+     
+      describe "with invalid information" do                 
         it "should not create an instrument" do
-          expect { click_button "Submit" }.not_to change(Instrument, :count)
+          expect{  click_button "Submit" }.to change{Instrument.count}.by(0)
         end
-                
-        before do
-          click_button "Submit"
-        end
-        describe "should return an error" do
-          it { should have_content('error') }
-        end
-        
       end
      
-      describe "with valid information" do
-        
+      describe "with valid information" do 
         before do
           find('#models').find(:xpath, 'option[2]').select_option
           fill_in 'instrument_assetNumber'  , with: 'dasdasdadsa'
@@ -105,14 +115,31 @@ describe "instrument pages:" do
         end
         
         it "should create a instrument" do
-          expect { click_button "Submit" }.to change(Instrument, :count).by(1)
-        end
+          expect { click_button "Submit" }.to change{Instrument.count}.by(1)
+        end        
         
-        describe "should return to view/show page" do
+        describe "should revert to instrument view page" do
           before { click_button "Submit" }
           it { should have_content('Instrument created!') }
           it { should have_title(full_title('Instrument View')) }  
           it { should have_selector('h2', "Instrument") }
+        end
+        
+        describe "including an additional owner" do
+          before do 
+            find('#users').find(:xpath, 'option[1]').select_option
+          end 
+          
+          it "should create a instrument" do
+            expect { click_button "Submit" }.to change{Instrument.count}.by(1)
+          end    
+          
+          describe "should revert to instrument view page" do
+            before { click_button "Submit" }         
+            it { should have_content('Instrument created!') }
+            it { should have_title(full_title('Instrument View')) }  
+            it { should have_selector('h2', "Instrument") }
+          end
         end
         
       end  
@@ -400,7 +427,7 @@ describe "instrument pages:" do
           end
           
           describe "should return an error" do
-            it { should have_content("Model can't be blank") }
+            it { should have_content("Model is required") }
           end
   
       end

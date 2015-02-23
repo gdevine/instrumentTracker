@@ -5,7 +5,7 @@
   <%= render 'shared/error_messages', object: f.object %>
   
   <div class="form-group">
-    <%= f.label :model_id, 'Model', :class => "col-lg-2 control-label" %>
+    <%= f.label :model_id, 'Model *', :class => "col-lg-2 control-label" %>
     <div class="col-lg-8">
       <%= collection_select(:instrument, :model_id, Model.all, :id, :full_name, {include_blank: 'None selected'}, {:class=>"form-control", :id=>'models'} ) %>
     </div>
@@ -19,7 +19,7 @@
   </div>
   
   <div class="form-group">
-    <%= f.label :serialNumber, "Serial Number", :class => "col-lg-2 control-label" %>
+    <%= f.label :serialNumber, "Serial Number *", :class => "col-lg-2 control-label" %>
     <div class="col-lg-8">
       <%= f.text_field :serialNumber, :class => "form-control" %>
     </div>
@@ -33,7 +33,7 @@
   </div>
   
   <div class="form-group">
-    <%= f.label :purchaseDate, 'Purchase Date', :class => "col-lg-2 control-label" %>
+    <%= f.label :purchaseDate, 'Purchase Date *', :class => "col-lg-2 control-label" %>
     <div class="col-lg-8">
       <%= f.date_field :purchaseDate, :class => "form-control" %>
     </div>
@@ -52,7 +52,14 @@
 	    <%= f.number_field :price, :min => 0, :class => "form-control" %>  
 	  </div> 
   </div> 
-  
+
+  <div class="form-group">
+  	<%= f.label :user_ids, "Additional Owners", :class => "col-lg-2 control-label"  %>
+    <div class="col-lg-8">
+      <%= f.collection_select :user_ids, User.all.reject{|u| u == current_user}, :id, :fullname, {include_blank:'None Selected', include_hidden:false}, { :class=>"form-control", :id=>'users', multiple:true } %>
+    </div>
+  </div>
+
   <div class="form-group">
     <div class="col-md-4 col-md-offset-4 topspace50 bottomspace">
       <%= f.submit "Submit", :class => "btn btn-large btn-primary" %>
@@ -61,11 +68,15 @@
   
 <% end %>
 
-<!-- <script type="text/javascript">
-$('#projects, #facilities').multiselect({
+
+<script type="text/javascript">
+$('#users, #models').multiselect({
+    includeSelectAllOption: true,
     buttonClass : "form-control",
     buttonWidth: "50%",
     maxHeight: 400,
-    enableFiltering: true
+    enableCaseInsensitiveFiltering: true,
+    buttonWidth: '350px'
 });
-</script> -->
+</script>
+

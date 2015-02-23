@@ -40,7 +40,7 @@
 		  <% elsif @status.status_type == 'Storage'%>
 		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_storage_path(id:@status.id) %> </li>
 		  <% elsif @status.status_type == 'Retirement'%>
-		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_storage_path(id:@status.id) %> </li>
+		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_retirement_path(id:@status.id) %> </li>
 		  <% end %>
 		  <li><%= link_to 'Delete '+ @status.status_type_text + ' Record', @status, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
 	  </ul>

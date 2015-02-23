@@ -13,11 +13,13 @@ class InstrumentsController < ApplicationController
       redirect_to root_url
     else
       @instrument = Instrument.new
+      @instrument.instrument_users.build
+      # @allbutme = User.all.reject{|u| u == current_user}
     end
   end
 
   def create
-    @instrument = Instrument.new(instrument_params)
+    @instrument = Instrument.create(instrument_params)
     if @instrument.save
       current_user.instruments << @instrument
       flash[:success] = "Instrument created!"
@@ -42,6 +44,7 @@ class InstrumentsController < ApplicationController
   def update
     @instrument = Instrument.find(params[:id])
     if @instrument.update_attributes(instrument_params)
+      current_user.instruments << @instrument
       flash[:success] = "Instrument updated"
       redirect_to @instrument
     else
@@ -58,7 +61,7 @@ class InstrumentsController < ApplicationController
   private
 
     def instrument_params
-      params.require(:instrument).permit(:model_id, :fundingSource, :assetNumber, :serialNumber, :supplier, :purchaseDate, :retirementDate, :price)
+      params.require(:instrument).permit(:model_id, :fundingSource, :assetNumber, :serialNumber, :supplier, :purchaseDate, :retirementDate, :price, :user_ids=> [])
     end
     
     def correct_user

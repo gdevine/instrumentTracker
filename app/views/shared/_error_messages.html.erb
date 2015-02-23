@@ -3,9 +3,11 @@
 	  <button type="button" class="close" data-dismiss="alert">×</button>
 	  <strong>The form contains <%= pluralize(object.errors.count, "error") %>.</strong> 
 	  <ul>
-	    <% object.errors.full_messages.each do |msg| %>
-	      <li><%= msg %></li>
-	    <% end %>
+	    <% object.errors.messages.values.each do |msg| %>
+        <% msg.each do  |m| %>
+          <li><%= m %></li>
+        <% end %>
+      <% end %>
 	  </ul>
 	</div>
 <% end %>

@@ -209,7 +209,7 @@ describe "Retirement pages:" do
       describe "with valid information" do
   
         before do
-          fill_in 'retirement_startdate', with: Date.new(2014, 12, 3)
+          fill_in 'retirement_startdate', with: Date.new(2020, 12, 3)
         end
         
         it "should update, not add a status" do

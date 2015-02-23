@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :instrument_users, :dependent => :destroy
+  has_many :instrument_users, :dependent => :destroy, inverse_of: :user
   has_many :instruments, :through => :instrument_users
   has_many :services, :class_name => 'Service', :foreign_key => 'reporter_id', :dependent => :destroy
   has_many :statuses, :class_name => 'Status', :foreign_key => 'reporter_id', :dependent => :destroy
@@ -43,5 +43,8 @@ class User < ActiveRecord::Base
     UserMailer.welcome_email(self).deliver
   end
   
+  def fullname
+    self.firstname << " " << self.surname
+  end
   
 end

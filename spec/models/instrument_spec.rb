@@ -22,24 +22,13 @@ describe Instrument do
  
   it { should be_valid }
 
-  describe "when more than three users are associated" do
-    before do 
-      @inst.save
-      for i in 0..3
-        @inst.users << FactoryGirl.create(:user) 
-      end
-    end
-    
-    it { should_not be_valid }
-  end
-
   describe "when serialNumber is not present" do
     before { @inst.serialNumber = nil }
     it { should_not be_valid }
   end
-  
-  describe "when assetNumber is not present" do
-    before { @inst.assetNumber = nil }
+
+  describe "when purchaseDate is not present" do
+    before { @inst.purchaseDate = nil }
     it { should_not be_valid }
   end
   
@@ -85,6 +74,7 @@ describe Instrument do
     it "should have associated users in alphabetical surname order" do
       expect(@inst.users.to_a).to eq [user_a, user_b, user_c]
     end
+    
   end
   
   

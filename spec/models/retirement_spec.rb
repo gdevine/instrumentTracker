@@ -55,4 +55,22 @@ describe Retirement do
     before { @retirement.reporter_id = 10000 }
     it { should_not be_valid }
   end
+  
+  describe "should allow only one retirement status per instrument" do
+    before do
+      @retirement2 = FactoryGirl.create(:retirement, instrument_id:@instrument.id, reporter_id:user1.id)
+    end 
+    
+    it { should_not be_valid }
+  end
+    
+  describe "should not have other statuses ahead of a retired instrument date" do
+    before do
+      @loan = FactoryGirl.create(:loan, instrument_id:@instrument.id, startdate: 2.days.ago )
+      @retirement.startdate = 3.days.ago
+    end 
+    
+    it { should_not be_valid }
+  end
+  
 end

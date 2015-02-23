@@ -11,7 +11,8 @@ class Status < ActiveRecord::Base
   end
   
   default_scope -> { order('startdate DESC') }
-  
+  scope :retired, -> { where(status_type: 'Retirement') }
+    
   validates :startdate, presence: true
   validates :status_type, presence: true
   validates :instrument_id, presence:true
@@ -19,7 +20,8 @@ class Status < ActiveRecord::Base
   
   validate :validate_instrument_id
   validate :validate_reporter_id
-  validate :start_before_end
+  validate :check_start_before_end
+  # validate :check_retirement_last
   
   def status_type_text
     case status_type
@@ -54,10 +56,17 @@ class Status < ActiveRecord::Base
       errors.add(:reporter_id, "is invalid") unless User.exists?(self.reporter_id)
     end  
     
-    def start_before_end
+    def check_start_before_end
       if !self.startdate.nil? && !self.startdate!="" && !self.enddate.nil? && !self.enddate!=""
         errors.add(:base, "End Date cannot precede Start Date") if self.startdate > self.enddate
       end
     end  
+    
+    def check_retirement_last
+      retired = self.instrument.statuses.retired.first
+      if retired
+        errors.add(:base, "Statuses can only be added prior to an Instrument Retirement") if retired.startdate < self.startdate
+      end
+    end
   
 end
