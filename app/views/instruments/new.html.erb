@@ -56,7 +56,7 @@
   <div class="form-group">
   	<%= f.label :user_ids, "Additional Owners", :class => "col-lg-2 control-label"  %>
     <div class="col-lg-8">
-      <%= f.collection_select :user_ids, User.all.reject{|u| u == current_user}, :id, :fullname, {include_blank:'None Selected', include_hidden:false}, { :class=>"form-control", :id=>'users', multiple:true } %>
+      <%= f.collection_select :user_ids, User.all.reject{|u| u == current_user}, :id, :fullname, {include_hidden:false}, { :class=>"form-control", :id=>'users', multiple:true } %>
     </div>
   </div>
 
@@ -79,4 +79,3 @@ $('#users, #models').multiselect({
     buttonWidth: '350px'
 });
 </script>
-
