@@ -10,7 +10,6 @@ index do
 end
 
 
-
 form do |f|
   f.inputs "Details" do
     f.input :firstname             

@@ -17,7 +17,7 @@ describe "Static pages:" do
         sign_in user
         visit root_path
       end
-      it { should have_content('Sign out,' + user.firstname.capitalize) }
+      it { should have_content('Sign out, ' + user.firstname.capitalize) }
       it { should_not have_content('Sign in') }
       it { should have_title(full_title('Home')) }
     end
