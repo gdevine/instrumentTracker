@@ -6,7 +6,7 @@ set :repository,  "git@github.com:gdevine/instrumentTracker.git"
 set :deploy_to, "/var/www/html/instrumenttracker"
 set :scm, :git
 set :branch, "master"
-set :user, "railsuser"
+set :user, "30036712"
 set :group, "deployers"
 set :use_sudo, false
 set :rails_env, "production"
