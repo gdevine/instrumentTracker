@@ -2,8 +2,8 @@ InstrumentTracker::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  
   devise_for :users
+  
     
   resources :models, only: [:index, :show]
   resources :services, only: [:index, :show, :create, :update, :destroy]
