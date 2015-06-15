@@ -15,6 +15,13 @@ class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   after_create :send_admin_mail, :send_welcome_mail
   
+  
+  # Set out different user roles available
+  def self.roles
+    ['technician', 'admin', 'custodian']
+  end
+  
+  
   validates :firstname, presence: true , length: { maximum: 50 }
   validates :surname, presence: true, length: { maximum: 50 }
   

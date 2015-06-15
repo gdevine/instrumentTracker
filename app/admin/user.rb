@@ -6,6 +6,7 @@ index do
   column :surname
   column :email
   column :approved
+  column :role
   actions
 end
 
@@ -16,6 +17,7 @@ form do |f|
     f.input :surname               
     f.input :email    
     f.input :approved   
+    f.collection_select :role, User::roles, :to_s, :humanize 
   end
   f.actions
 end
@@ -23,6 +25,7 @@ end
  permit_params :firstname, 
                :surname, 
                :email,      
-               :approved
+               :approved,
+               :role
 
 end

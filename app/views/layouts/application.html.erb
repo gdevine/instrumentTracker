@@ -13,9 +13,7 @@
     <%= render 'layouts/header' %>
     <div class="container">      
       
-      <!-- <%# if user_signed_in? %> -->
-        <%= render 'layouts/minibar' %>
-      <!-- <%# end %> -->
+      <%= render 'layouts/minibar' %>
       <div class="row">
         <div class="col-xs-offset-3 col-xs-6">
 		      <% flash.each do |key, value| %>
@@ -25,14 +23,6 @@
 		      <% end %>
         </div>
       </div>
-      
-      <!-- Notifications from Devise  -->
-	  <!-- <% if notice %>
-		<p class="alert alert-success"><%= notice %></p>
-	  <% end %>
-	  <% if alert %>
-		<p class="alert alert-danger"><%= alert %></p>
-      <% end %> -->
 		
       <h2 class="bottomspace"><%= yield(:pageheading) %></h2>
       <%= yield %>

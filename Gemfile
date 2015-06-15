@@ -15,6 +15,7 @@ gem 'roo'
 gem 'pg'
 gem 'faker'
 gem 'factory_girl_rails', '4.2.0', :require => false
+gem 'cancancan', '~> 1.10'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

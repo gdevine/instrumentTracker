@@ -14,7 +14,6 @@ class InstrumentsController < ApplicationController
     else
       @instrument = Instrument.new
       @instrument.instrument_users.build
-      # @allbutme = User.all.reject{|u| u == current_user}
     end
   end
 
