@@ -1,9 +1,8 @@
 class InstrumentsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :correct_user,  only: [:edit, :update, :destroy]
+  load_and_authorize_resource
   
   def index   
-    # @instruments = Instrument.paginate(page: params[:page], :per_page => 20)
     @instruments = Instrument.all   # Now using datatables for index table - no need for pagination
   end
   

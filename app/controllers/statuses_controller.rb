@@ -1,9 +1,11 @@
 class StatusesController < ApplicationController
   before_action :set_status_type
   before_action :set_status_type_text
-  before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy]
-  before_action :correct_user,  only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   
+  load_and_authorize_resource :instrument
+  load_and_authorize_resource :status, :through => :instrument, :shallow => true
+
   
   def index
     if params[:instrument_id]
@@ -64,6 +66,7 @@ class StatusesController < ApplicationController
 
 
   def destroy
+    @instrument = @status.instrument
     @status.destroy
     flash[:success] = @status.status_type_text + " Record Deleted!"
     redirect_to @instrument

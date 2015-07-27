@@ -23,7 +23,8 @@
 <% provide(:pageheading, 'Instrument '+ @instrument.id.to_s) %>
 
 <!-- Add edit/delete buttons if current user -->
-<% if @instrument.users.include? current_user %> 
+
+<% if can? :edit, @instrument %>
  <div class="row bottomspace">  
     <div class="col-xs-12 col-sm-2 col-sm-push-10">
 		<a class="btn btn-block btn-info" data-toggle="dropdown" href="#" id="options_button">
@@ -33,7 +34,9 @@
 		<ul class="dropdown-menu">
 		    <li><%= link_to "Edit Instrument", :action => 'edit' %></li>
 		    <li><%= link_to "Add Service Record", new_instrument_service_path(instrument_id:@instrument.id) %> </li>
-		    <li><%= link_to "Delete Instrument", @instrument, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
+		    <% if can? :destroy, @instrument %>
+		      <li><%= link_to "Delete Instrument", @instrument, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
+		    <% end %>
 		    <li role="presentation" class="divider"></li>
 		    <li role="presentation" class="dropdown-header">Add New Status</li>
 		    <li><%= link_to "Instrument Loan", new_instrument_loan_path(instrument_id:@instrument.id) %> </li>

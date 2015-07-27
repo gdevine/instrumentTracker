@@ -13,6 +13,7 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:approved) }
+  it { should respond_to(:role) }
   it { should respond_to(:services) }
   it { should respond_to(:instruments) }
   
@@ -117,6 +118,33 @@ describe User do
     before { @user.password = @user.password_confirmation = "a" * 5 }
     it { should be_invalid }
   end
+  
+
+ # role checks
+  describe "check that a technicain role is valid" do
+    before {@user.role = 'technician'}
+    it { should be_valid }
+  end
+  
+  describe "check that a superuser role is valid" do
+    before {@user.role = 'custodian'}
+    it { should be_valid }
+  end
+  
+  describe "check that an admin role is valid" do
+    before {@user.role = 'admin'}
+    it { should be_valid }
+  end
+
+  describe "check that a random role is not valid" do
+    before {@user.role = 'invalid'}
+    it { should_not be_valid }
+  end
+  
+  describe "check that an empty role is not valid" do
+    before {@user.role = ''}
+    it { should_not be_valid }
+  end  
   
   
   describe "instrument associations" do

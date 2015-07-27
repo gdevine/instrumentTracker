@@ -4,13 +4,14 @@ describe "Service pages:" do
 
   subject { page }
   
-  let(:user) { FactoryGirl.create(:user) }
+  let(:technician) { FactoryGirl.create(:user) }
+  let(:custodian) { FactoryGirl.create(:custodian) }
 
   describe "Index page" do
     
-    describe "for signed-in users" do
+    describe "for signed-in technicians" do
       
-      before { sign_in user }
+      before { sign_in technician }
       before { visit services_path }
       
       it { should have_content('Servicing List') }
@@ -43,7 +44,7 @@ describe "Service pages:" do
 
     end
     
-    describe "for non signed-in users" do
+    describe "for non signed-in technicians" do
       describe "should not be able to see instrument list" do
         before { visit services_path }
         it { should_not have_content('Servicing List') }
@@ -58,12 +59,36 @@ describe "Service pages:" do
       
     let!(:instrument) { FactoryGirl.create(:instrument) } 
     
-    describe "for signed-in users with instruments in the system" do
+    describe "for signed-in technicians who don't own the instrument" do
       
       before do 
-        sign_in user
+        sign_in technician
         visit new_instrument_service_path(instrument_id:instrument.id)
-      end          
+      end        
+      
+      it { should have_content("You are not authorized to access this page.") }  
+
+    end
+    
+    describe "for signed-in custodians who don't own the instrument" do
+      
+      before do 
+        sign_in custodian
+        visit new_instrument_service_path(instrument_id:instrument.id)
+      end        
+      
+      it { should have_content("You are not authorized to access this page.") }  
+
+    end
+    
+    describe "for signed-in technicians who own the instrument" do
+      
+      before do 
+        instrument.users << technician
+        sign_in technician
+        visit new_instrument_service_path(instrument_id:instrument.id)
+      end        
+      
       
       it { should have_content('New Service Record for Instrument '+instrument.id.to_s) }
       it { should have_title(full_title('New Service Record')) }
@@ -131,6 +156,23 @@ describe "Service pages:" do
       
     end
     
+    
+    describe "for signed-in custodians who own the instrument" do
+      
+      before do 
+        instrument.users << custodian
+        sign_in custodian
+        visit new_instrument_service_path(instrument_id:instrument.id)
+      end        
+      
+      
+      it { should have_content('New Service Record for Instrument '+instrument.id.to_s) }
+      it { should have_title(full_title('New Service Record')) }
+      it { should_not have_title('| Home') }
+      
+    end
+    
+    
     describe "for non signed-in users" do
       describe "should be redirected back to signin" do
         before { visit new_instrument_service_path(instrument_id:instrument.id) }
@@ -145,15 +187,15 @@ describe "Service pages:" do
       
     before do 
       @instrument = FactoryGirl.create(:instrument)
-      @instrument.users << user
+      @instrument.users << technician
       @instrument.save
-      @service = FactoryGirl.create(:service, instrument_id:@instrument.id, reporter:user)
+      @service = FactoryGirl.create(:service, instrument_id:@instrument.id, reporter:technician)
     end
     
-    describe "for signed-in users who are an owner" do
+    describe "for signed-in technicians who are an owner" do
       
       before do 
-        sign_in(user) 
+        sign_in(technician) 
         visit service_path(@service)
       end
       
@@ -206,7 +248,7 @@ describe "Service pages:" do
        end 
     end
     
-    describe "for non signed-in users" do
+    describe "for non signed-in technicians" do
       describe "should still see the page but have no option button" do
         before do 
          visit service_path(@service)
@@ -236,15 +278,15 @@ describe "Service pages:" do
     
     before do 
       @instrument = FactoryGirl.create(:instrument)
-      @instrument.users << user
+      @instrument.users << technician
       @instrument.save
-      @service = FactoryGirl.create(:service, instrument_id:@instrument.id, reporter:user)
+      @service = FactoryGirl.create(:service, instrument_id:@instrument.id, reporter:technician)
     end 
     
-    describe "for signed-in users who are an owner" do
+    describe "for signed-in technicians who are an owner" do
       
       before do 
-        sign_in(user) 
+        sign_in(technician) 
         visit edit_instrument_service_path(id:@service.id, instrument_id:@instrument.id)
       end 
       
@@ -308,7 +350,7 @@ describe "Service pages:" do
       
     end  
     
-    describe "for signed-in users who are not an owner" do
+    describe "for signed-in technicians who are not an owner" do
       let(:non_owner) { FactoryGirl.create(:user) }
       before do 
         sign_in(non_owner)
@@ -322,7 +364,7 @@ describe "Service pages:" do
       end
     end
     
-    describe "for non signed-in users" do
+    describe "for non signed-in technicians" do
       describe "should be redirected back to signin" do
         before { visit edit_instrument_service_path(id:@service.id, instrument_id:@instrument.id) }
         it { should have_title('Sign in') }
@@ -334,14 +376,14 @@ describe "Service pages:" do
   describe "service destruction" do
     before do 
       @instrument = FactoryGirl.create(:instrument)
-      @instrument.users << user
+      @instrument.users << technician
       @instrument.save
-      @service = FactoryGirl.create(:service, instrument_id:@instrument.id, reporter:user)
+      @service = FactoryGirl.create(:service, instrument_id:@instrument.id, reporter:technician)
     end 
     
-    describe "for signed-in users who are an owner" do  
+    describe "for signed-in technicians who are an owner" do  
       before do 
-        sign_in(user) 
+        sign_in(technician) 
         visit service_path(@service)
       end   
       it "should delete" do

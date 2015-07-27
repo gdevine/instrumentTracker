@@ -2,6 +2,10 @@ class ServicesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :correct_user,  only: [:edit, :update, :destroy]
   
+  load_and_authorize_resource :instrument
+  load_and_authorize_resource :service, :through => :instrument, :shallow => true
+  
+  
   def index
    @services = Service.paginate(page: params[:page], :per_page => 20)
   end

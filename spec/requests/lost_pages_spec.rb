@@ -58,8 +58,8 @@ describe "Lost pages:" do
           visit instrument_losts_path(@instrument)
         end
         
-        it { should_not have_content('Lost List for Instrument '+@instrument.id.to_s) }
-        it { should have_title('Sign in') }
+        it { should have_content('Lost List for Instrument '+@instrument.id.to_s) }
+        it { should_not have_title('Sign in') }
       end
     end
     

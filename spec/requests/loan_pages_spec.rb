@@ -58,8 +58,8 @@ describe "Loan pages:" do
           visit instrument_loans_path(@instrument)
         end
         
-        it { should_not have_content('Loan List for Instrument '+@instrument.id.to_s) }
-        it { should have_title('Sign in') }
+        it { should have_content('Loan List for Instrument '+@instrument.id.to_s) }
+        it { should_not have_title('Sign in') }
       end
     end
     

@@ -59,8 +59,8 @@ describe "Storage pages:" do
           visit instrument_storages_path(@instrument)
         end
         
-        it { should_not have_content('Storage List for Instrument '+@instrument.id.to_s) }
-        it { should have_title('Sign in') }
+        it { should have_content('Storage List for Instrument '+@instrument.id.to_s) }
+        it { should_not have_title('Sign in') }
       end
     end
     

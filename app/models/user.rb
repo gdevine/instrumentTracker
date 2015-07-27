@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, format:     { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+  validates_inclusion_of :role, in: self.roles
                     
                     
   def active_for_authentication? 
@@ -51,7 +53,7 @@ class User < ActiveRecord::Base
   end
   
   def fullname
-    self.firstname << " " << self.surname
+    self.firstname + ' ' + self.surname
   end
   
 end

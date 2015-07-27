@@ -7,10 +7,19 @@ FactoryGirl.define do
     password "foobar100"
     password_confirmation "foobar100"   
     approved true
+    role "technician"
     
     factory :unapproved_user do
       approved false
     end
+    
+    factory :custodian do
+      role "custodian"
+    end
+    
+    factory :admin do
+      role "admin"
+    end  
       
   end
   

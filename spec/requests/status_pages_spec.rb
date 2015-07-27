@@ -52,7 +52,7 @@ describe "Status pages:" do
     end
     
     describe "for non signed-in users" do
-      describe "should not be able to see instrument status list" do
+      describe "should be able to see instrument status list" do
         before do 
           @instrument = FactoryGirl.create(:instrument)
           @instrument.users << user
@@ -61,8 +61,8 @@ describe "Status pages:" do
           visit instrument_statuses_path(@instrument)
         end
         
-        it { should_not have_content('Status List for Instrument '+@instrument.id.to_s) }
-        it { should have_title('Sign in') }
+        it { should have_content('Status List for Instrument '+@instrument.id.to_s) }
+        it { should_not have_title('Sign in') }
       end
     end
     

@@ -12,7 +12,7 @@ require Rails.root.join('spec/factories.rb')
 
 # Users
 # Create a user for developer to work with
-User.create(firstname:'Gerard', surname:'Devine', email:'g.devine@uws.edu.au', password:'qwertyui', password_confirmation:'qwertyui', approved:true)
+User.create(firstname:'Gerard', surname:'Devine', email:'g.devine@uws.edu.au', password:'qwertyui', password_confirmation:'qwertyui', approved:true, role:'admin')
 # Create one unapproved user
 FactoryGirl.create :unapproved_user
 # Create some approved users
