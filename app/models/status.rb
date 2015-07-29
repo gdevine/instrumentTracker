@@ -2,12 +2,13 @@ class Status < ActiveRecord::Base
   belongs_to :instrument, :class_name => 'Instrument', :foreign_key => 'instrument_id'
   belongs_to :reporter, :class_name => 'User', :foreign_key => 'reporter_id'
   belongs_to :storage_location, :class_name => 'StorageLocation', :foreign_key => 'storage_location_id'
+  belongs_to :site, :class_name => 'Site', :foreign_key => 'site_id'
   
   self.inheritance_column = :status_type
   # We will need a way to know which statuses
   # will subclass the Status model
   def self.status_types
-    ['Loan', 'Lost', 'Facedeployment', 'Storage', 'Retirement']
+    ['Loan', 'Lost', 'Facedeployment', 'Storage', 'Retirement', 'Deployment']
   end
   
   default_scope -> { order('startdate DESC') }
@@ -34,7 +35,9 @@ class Status < ActiveRecord::Base
     when 'Facedeployment'
       'FACE Deployment'
     when 'Storage'
-      'In Storage'
+      'In Storage'    
+    when 'Deployment'
+      'Deployment'
     else
       'Status'
     end

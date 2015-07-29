@@ -11,6 +11,9 @@ class StatusesController < ApplicationController
     if params[:instrument_id]
       @statuses = status_type_class.where(instrument_id:params[:instrument_id]).paginate(page: params[:page], :per_page => 20)
       @instrument = Instrument.find(params[:instrument_id])
+    elsif params[:site_id]
+      @statuses = status_type_class.where(site_id:params[:site_id]).paginate(page: params[:page], :per_page => 20)
+      @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id)).paginate(page: params[:page], :per_page => 20)
     else
       # when not bounded by a particular instrument we return a list of only 'current' statuses
       @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id)).paginate(page: params[:page], :per_page => 20)
@@ -93,6 +96,8 @@ class StatusesController < ApplicationController
         'Loan'
       when 'Lost'
         'Lost'
+      when 'Deployment'
+        'Deployment'
       when 'Facedeployment'
         'FACE Deployment'
       when 'Storage'
@@ -109,7 +114,8 @@ class StatusesController < ApplicationController
     end
     
     def status_params
-      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id, :status_type, :ring, :northing, :easting, :vertical, :storage_location_id)
+      params.require(@status_type.downcase).permit(:instrument_id, :loaned_to, :startdate, :enddate, :address, :comments, :reporter_id, :status_type, :ring, :northing, :easting, :vertical, \
+        :storage_location_id, :site_id, :location_identifier)
     end
     
     def correct_user

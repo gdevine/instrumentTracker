@@ -1,5 +1,3 @@
-
-
 <% if @status.status_type == 'Retirement' %> 
   <% provide(:title, 'Instrument Retirement') %>
   <% provide(:pageheading, 'Retire Instrument '+ @instrument.id.to_s) %>
@@ -89,6 +87,43 @@
 		</div>
 	<% end %>
   
+  <% if @status.status_type == 'Deployment' %> 
+	  <div class="form-group">
+		  <%= f.label :site_id, 'Site', :class => "col-lg-2 control-label" %>
+		  <div class="col-lg-8">
+		    <%= collection_select(:deployment, :site_id, Site.all, :id, :shortname, {include_blank: 'None selected'}, {:class=>"form-control", :id=>'sites'} ) %>
+		  </div>
+		</div>
+	  
+	  <div class="form-group">
+	    <%= f.label :northing, "Northing", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.number_field :northing, :class => "form-control", :step => 0.01 %>
+	    </div>
+	  </div>
+	  	  
+	  <div class="form-group">
+	    <%= f.label :easting, "Easting", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.number_field :easting, :class => "form-control", :step => 0.01 %>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <%= f.label :vertical, "Vertical", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.number_field :vertical, :class => "form-control", :step => 'any' %>
+	    </div>
+	  </div>
+	 
+	  <div class="form-group">
+	    <%= f.label :location_identifier, "Location Identifier", :class => "col-lg-2 control-label" %>
+	    <div class="col-lg-8">
+	      <%= f.text_field :location_identifier, :class => "form-control" %>
+	    </div>
+	  </div>
+	<% end %>  
+  
   <div class="form-group">
     <%= f.label :comments, "Comments", :class => "col-lg-2 control-label" %>
     <div class="col-lg-8">
@@ -103,12 +138,3 @@
   </div>
   
 <% end %>
-
-<!-- <script type="text/javascript">
-$('#projects, #facilities').multiselect({
-    buttonClass : "form-control",
-    buttonWidth: "50%",
-    maxHeight: 400,
-    enableFiltering: true
-});
-</script> -->

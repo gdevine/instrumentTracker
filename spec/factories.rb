@@ -130,5 +130,28 @@ FactoryGirl.define do
     association :reporter, :factory  => :user
     association :storage_location, :factory  => :storage_location
   end
+  
+  factory :site do 
+    name { Faker::Address.street_name }
+    shortname { Faker::Internet.domain_word }
+    address { Faker::Address.street_address }
+    description "This is a dummy description of this site"
+    contact { Faker::Name.name }
+    website { Faker::Internet.url }
+  end
+  
+  factory :deployment do 
+    status_type "Deployment"
+    startdate { Faker::Date.between(100.days.ago, 10.days.ago) }
+    location_identifier { Faker::Number.between(1, 600) }
+    northing { Faker::Address.latitude }
+    easting { Faker::Address.longitude }
+    vertical { rand(-10.0..30.0) }
+    comments "This is a dummy comment for this deployment status"
+    
+    association :instrument, :factory  => :instrument
+    association :reporter, :factory  => :user
+    association :site, :factory  => :site
+  end
     
 end

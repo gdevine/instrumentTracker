@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519065620) do
+ActiveRecord::Schema.define(version: 20150727083910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,17 @@ ActiveRecord::Schema.define(version: 20150519065620) do
 
   add_index "services", ["instrument_id", "created_at"], name: "index_services_on_instrument_id_and_created_at", using: :btree
 
+  create_table "sites", force: true do |t|
+    t.string   "name"
+    t.string   "shortname"
+    t.text     "address"
+    t.text     "description"
+    t.string   "contact"
+    t.string   "website"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "statuses", force: true do |t|
     t.datetime "startdate"
     t.integer  "instrument_id"
@@ -124,6 +135,8 @@ ActiveRecord::Schema.define(version: 20150519065620) do
     t.float    "easting"
     t.float    "vertical"
     t.integer  "storage_location_id"
+    t.integer  "site_id"
+    t.string   "location_identifier"
   end
 
   add_index "statuses", ["instrument_id", "created_at"], name: "index_statuses_on_instrument_id_and_created_at", using: :btree

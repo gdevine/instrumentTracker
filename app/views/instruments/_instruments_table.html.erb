@@ -5,7 +5,12 @@
   <td><%= instrument.assetNumber %> </td>
   <td><%= instrument.purchaseDate.strftime('%a %b %d %Y') %></td>
   <% if !instrument.current_status.nil? %>
-    <td><%= instrument.current_status.status_type_text %></td>
+    <% if instrument.current_status.status_type_text == 'Deployment' %>
+      <td><%= instrument.current_status.status_type_text + ' (' + instrument.current_status.site.shortname +  ')' %></td>
+    <% else %>
+      <td><%= instrument.current_status.status_type_text %></td>
+    <% end %>
+
   <% else %>
     <td> None assigned </td>
   <% end %>

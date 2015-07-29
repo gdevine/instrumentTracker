@@ -12,6 +12,7 @@ InstrumentTracker::Application.routes.draw do
   resources :loans, controller: 'statuses', status_type: 'Loan',  only: [:index, :edit, :show, :update, :destroy]
   resources :losts, controller: 'statuses', status_type: 'Lost',  only: [:index, :edit, :show, :update, :destroy]  
   resources :storages, controller: 'statuses', status_type: 'Storage',  only: [:index, :edit, :show, :update, :destroy]
+  resources :deployments, controller: 'statuses', status_type: 'Deployment',  only: [:index, :edit, :show, :update, :destroy]
   resources :retirements, controller: 'statuses', status_type: 'Retirement',  only: [:index, :edit, :show, :update, :destroy]
   
   resources :instruments do
@@ -19,6 +20,7 @@ InstrumentTracker::Application.routes.draw do
     resources :statuses,  only: [:index]
     resources :facedeployments, controller: 'statuses', status_type: 'Facedeployment',  only: [:index, :new, :create]  
     resources :storages, controller: 'statuses', status_type: 'Storage',  only: [:index, :new, :create]  
+    resources :deployments, controller: 'statuses', status_type: 'Deployment',  only: [:index, :new, :create]  
     resources :loans, controller: 'statuses', status_type: 'Loan',  only: [:index, :new, :create]  
     resources :losts, controller: 'statuses', status_type: 'Lost',  only: [:index, :new, :create]  
     resources :retirements, controller: 'statuses', status_type: 'Retirement',  only: [:index, :new, :create]  

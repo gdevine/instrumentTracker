@@ -73,7 +73,7 @@ end
   facedeployment = FactoryGirl.create(:facedeployment, instrument_id:rand(1..50), reporter_id:rand(1..5))    
 end
 
-# Retired Instruments
+# Instruments in storage
 5.times do
   storage = FactoryGirl.create(:storage, instrument_id:rand(1..50), reporter_id:rand(1..5))    
 end
@@ -81,4 +81,9 @@ end
 # Retired Instruments
 3.times do
   retired = FactoryGirl.create(:retirement, instrument_id:rand(1..50), reporter_id:rand(1..5))    
+end
+
+# Deployed Instruments
+6.times do
+  deployed = FactoryGirl.create(:deployment, instrument_id:rand(1..50), reporter_id:rand(1..5))    
 end

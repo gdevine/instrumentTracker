@@ -24,6 +24,15 @@
 		  </div>
 		</div>
 	<% end %>
+
+  <% if @status.status_type == 'Deployment' %> 
+	  <div class="form-group">
+		  <%= f.label :site_id, 'Site', :class => "col-lg-2 control-label" %>
+		  <div class="col-lg-8">
+		    <%= collection_select(:deployment, :site_id, Site.all, :id, :shortname, {include_blank: 'None selected', :selected => @status.site_id.to_i}, {:class=>"form-control", :id=>'sites'} ) %>
+		  </div>
+		</div>
+	<% end %>
   
   <% if @status.status_type == 'Loan' %> 
 	  <div class="form-group">

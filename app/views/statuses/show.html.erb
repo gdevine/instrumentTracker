@@ -39,8 +39,12 @@
 		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_facedeployment_path(id:@status.id) %> </li>
 		  <% elsif @status.status_type == 'Storage'%>
 		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_storage_path(id:@status.id) %> </li>
+		  <% elsif @status.status_type == 'Storage'%>
+		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_storage_path(id:@status.id) %> </li>
+		  <% elsif @status.status_type == 'Deployment'%>
+		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_deployment_path(id:@status.id) %> </li>
 		  <% elsif @status.status_type == 'Retirement'%>
-		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_retirement_path(id:@status.id) %> </li>
+		    <li><%= link_to 'Edit ' + @status.status_type_text + ' Record', edit_deployment_path(id:@status.id) %> </li>
 		  <% end %>
 		  <li><%= link_to 'Delete '+ @status.status_type_text + ' Record', @status, :method => :delete, data: { confirm: "Are you sure?" }, :class=>"redtext" %></li>
 	  </ul>
@@ -167,7 +171,45 @@
 		  </div>
 		</div>
 		
+	  <% if @status.status_type == 'Deployment' %> 		
+			<div class="row">
+			  <div class="col-md-offset-3 col-md-3">
+			    <p class="text-left">Location Identifier</p>
+			  </div>   
+			  <div class="col-md-6">
+			    <p class="text-muted"><%= @status.location_identifier %></p>
+			  </div>
+			</div>	
 			  
+	  	<div class="row">
+			  <div class="col-md-offset-3 col-md-3">
+			    <p class="text-left">Northing</p>
+			  </div>   
+			  <div class="col-md-6">
+			    <p class="text-muted"><%= number_with_precision(@status.northing, :precision => 2) %></p>
+			  </div>
+			</div>
+			
+			<div class="row">
+			  <div class="col-md-offset-3 col-md-3">
+			    <p class="text-left">Easting</p>
+			  </div>   
+			  <div class="col-md-6">
+			    <p class="text-muted"><%= number_with_precision(@status.easting, :precision => 2) %></p>
+			  </div>
+			</div>
+			
+			<div class="row">
+			  <div class="col-md-offset-3 col-md-3">
+			    <p class="text-left">Vertical</p>
+			  </div>   
+			  <div class="col-md-6">
+			    <p class="text-muted"><%= number_with_precision(@status.vertical, :precision => 2) %></p>
+			  </div>
+			</div>
+			
+	  <% end %> 	  
+	  
 	  <% if @status.status_type == 'Storage' %> 
 	  <div class="row">
 	    <div class="col-md-offset-3 col-md-6 well well-sm well-blue">	
@@ -199,6 +241,38 @@
 				  </div>   
 				  <div class="col-md-6">
 				    <p class="text-muted"><%= @status.storage_location.address %></p>
+				  </div>
+				  
+				</div>
+		  </div>
+		</div>
+	  <% end %>
+	  
+	  
+	  <% if @status.status_type == 'Deployment' %> 
+	  <div class="row">
+	    <div class="col-md-offset-3 col-md-6 well well-sm well-blue">	
+			  <h4 class="center">Site</h4>
+				<div class="row topspace20">
+				  <div class="col-md-6">
+				    <p class="text-left">Site name</p>
+				  </div>   
+				  <div class="col-md-6">
+				    <p class="text-muted"><%= @status.site.name %></p>
+				  </div>
+				  
+				  <div class="col-md-6">
+				    <p class="text-left">Address</p>
+				  </div>   
+				  <div class="col-md-6">
+				    <p class="text-muted"><%= @status.site.address %></p>
+				  </div>
+
+				  <div class="col-md-6">
+				    <p class="text-left">Site contact</p>
+				  </div>   
+				  <div class="col-md-6">
+				    <p class="text-muted"><%= @status.site.contact %></p>
 				  </div>
 				  
 				</div>
