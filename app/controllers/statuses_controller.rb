@@ -9,14 +9,14 @@ class StatusesController < ApplicationController
   
   def index
     if params[:instrument_id]
-      @statuses = status_type_class.where(instrument_id:params[:instrument_id]).paginate(page: params[:page], :per_page => 20)
+      @statuses = status_type_class.where(instrument_id:params[:instrument_id])
       @instrument = Instrument.find(params[:instrument_id])
     elsif params[:site_id]
-      @statuses = status_type_class.where(site_id:params[:site_id]).paginate(page: params[:page], :per_page => 20)
-      @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id)).paginate(page: params[:page], :per_page => 20)
+      @statuses = status_type_class.where(site_id:params[:site_id])
+      @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id))
     else
-      # when not bounded by a particular instrument we return a list of only 'current' statuses
-      @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id)).paginate(page: params[:page], :per_page => 20)
+      # when not bounded by a particular instrument we return a list of only instruments from 'current' statuses
+      @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id))
     end
   end
 
