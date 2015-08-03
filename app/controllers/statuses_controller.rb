@@ -12,8 +12,8 @@ class StatusesController < ApplicationController
       @statuses = status_type_class.where(instrument_id:params[:instrument_id])
       @instrument = Instrument.find(params[:instrument_id])
     elsif params[:site_id]
-      @statuses = status_type_class.where(site_id:params[:site_id])
-      @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id))
+      #  return a list of only instruments from 'current' deployment at a particular site
+      @instruments = Instrument.where(id: view_context.current_site_deployments(params[:site_id]).map(&:id))
     else
       # when not bounded by a particular instrument we return a list of only instruments from 'current' statuses
       @instruments = Instrument.where(id: view_context.current_instruments(status_type).map(&:id))

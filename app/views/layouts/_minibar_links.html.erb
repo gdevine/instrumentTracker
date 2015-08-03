@@ -38,9 +38,13 @@
             <%= link_to 'All Deployed', deployments_path, :id => 'deployments_index' %>
           </li>
           <li role="presentation" class="divider"></li>
-          <li>
-            <%= link_to "FACE", deployments_path, :id => 'deployments_index' %>
-          </li>
+          
+          <% Site.all.each do |site| %>
+	          <li>
+	            <%= link_to site.shortname, deployments_site_path(:site_id => site.id) %>
+	          </li>
+          <% end %>
+        
         </ul>
       </li>     
       

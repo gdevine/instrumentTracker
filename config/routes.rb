@@ -32,6 +32,7 @@ InstrumentTracker::Application.routes.draw do
   match '/contact',       to: 'static_pages#contact',   via: 'get'
   match '/dashboard',       to: 'static_pages#dashboard',   via: 'get'
 
+  match '/deployments/site/:site_id', to: 'statuses#index', via: :get, :as => :deployments_site
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
